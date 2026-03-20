@@ -18,6 +18,9 @@
     "url": "https://github.com/ka-te-vey/Document-Generator/issues"
   },
   "homepage": "https://github.com/ka-te-vey/Document-Generator#readme",
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "concurrently": "^9.2.1"
   }
