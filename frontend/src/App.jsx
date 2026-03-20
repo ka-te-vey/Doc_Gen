@@ -17,7 +17,7 @@ export default function App() {
   const [previewData, setPreviewData] = useState(defaultDocument)
 
   const [isExportModalOpen, setIsExportModalOpen] = useState(false)
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
   const [isGenerating, setIsGenerating] = useState(false)
 
   useEffect(() => {
@@ -44,8 +44,7 @@ export default function App() {
     if (!sidebarData.content.trim()) return
 
     setIsGenerating(true)
-    // const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-    const apiUrl = "https://doc-gen-1.onrender.com"
+    const apiUrl = import.meta.env.VITE_API_URL || "https://doc-gen-1.onrender.com"
     try {
       const response = await fetch(`${apiUrl}/api/generate`, {
         method: 'POST',
@@ -82,13 +81,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-4 relative overflow-hidden" style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
-      <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8 rgb-animate-border rounded-none p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 transition-all duration-500 lg:h-[82vh]" style={{ backgroundColor: 'var(--code-bg)' }}>
-        {/* Corner Glows for Main Panel */}
-        <div className="corner-glow corner-tl"></div>
-        <div className="corner-glow corner-tr"></div>
-        <div className="corner-glow corner-bl"></div>
-        <div className="corner-glow corner-br"></div>
-
+      {/* Background Gradients for depth (No animations for performance) */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ background: 'var(--page-bg)' }}></div>
+      
+      <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-4 rounded-[20px] p-4 relative z-10 lg:h-[85vh]">
         <Sidebar 
           documentData={sidebarData}
           onDocumentChange={handleDocumentChange}
@@ -99,16 +95,8 @@ export default function App() {
           isGenerating={isGenerating}
         />
 
-        <main className="flex-1 min-h-0 overflow-hidden rounded-none p-1 relative" style={{ backgroundColor: 'transparent' }}>
-          <div className="h-full min-h-0 rounded-none rgb-animate-border p-1 overflow-hidden" style={{ backgroundColor: 'var(--bg)' }}>
-            {/* Inner Corner Glows */}
-            <div className="corner-glow corner-tl !scale-50"></div>
-            <div className="corner-glow corner-tr !scale-50"></div>
-            <div className="corner-glow corner-bl !scale-50"></div>
-            <div className="corner-glow corner-br !scale-50"></div>
-            
-            <Preview documentData={previewData} onExportClick={() => setIsExportModalOpen(true)} />
-          </div>
+        <main className="flex-1 min-h-0 overflow-hidden relative">
+          <Preview documentData={previewData} onExportClick={() => setIsExportModalOpen(true)} />
         </main>
       </div>
 

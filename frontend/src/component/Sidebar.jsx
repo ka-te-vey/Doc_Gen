@@ -2,99 +2,90 @@ import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 
 export default function Sidebar({ documentData, onDocumentChange, onGenerate, onClear, theme, toggleTheme, isGenerating }) {
   return (
-    <aside className="w-full lg:w-[450px] h-full flex flex-col rounded-none overflow-visible rgb-animate-border relative" style={{ backgroundColor: 'var(--sidebar-bg)', color: 'var(--text)' }}>
-      {/* Sidebar Corner Glows */}
-      <div className="corner-glow corner-tl !scale-75"></div>
-      <div className="corner-glow corner-tr !scale-75"></div>
-      <div className="corner-glow corner-bl !scale-75"></div>
-      <div className="corner-glow corner-br !scale-75"></div>
-
-      <div className="px-4 py-3 border-b flex items-center justify-between" style={{ borderColor: 'var(--border)' }}>
-        <div className="group cursor-default">
-          <div className="text-[14px] tracking-[0.4em] uppercase font-black rgb-text-shift" style={{ '--text-offset': '0s' }}>DocGen</div>
-          <div className="text-[10px] uppercase tracking-[0.35em] rgb-text-shift" style={{ '--text-offset': '-1s' }}>v1.0</div>
-        </div>
-        <button 
-          onClick={toggleTheme} 
-          className="rounded-none p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 transition-all active:scale-95 shadow-lg group rgb-animate-border" 
-          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        >
-          <span className="text-lg group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]">
-            {theme === 'dark' ? <HiOutlineMoon className="text-slate-400" /> : <HiOutlineSun className="text-amber-400" />}
-          </span>
-        </button>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
-        <div className="space-y-3">
-          <div className="text-[10px] uppercase tracking-[0.35em] font-bold rgb-text-shift" style={{ '--text-offset': '-0.5s' }}>Documentation Type</div>
-          <div className="relative">
-            <select
-              className="w-full rounded-none px-3 py-3 pr-10 text-xs outline-none transition appearance-none"
-              style={{
-                backgroundColor: '#1f0d2f',
-                color: '#f3e8ff',
-                border: '1px solid #6d28d9',
-                boxShadow: 'inset 0 0 0 1px rgba(167, 139, 250, 0.15)'
-              }}
-              value={documentData.documentType}
-              onChange={(e) => onDocumentChange('documentType', e.target.value)}
-              disabled={isGenerating}
-            >
-              <option>README</option>
-              <option>API DOCUMENT</option>
-              <option>CODE EXPLAINATION</option>
-            </select>
-            <span
-              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs"
-              style={{ color: '#c4b5fd' }}
-            >
-              ▾
+    <aside className="w-full lg:w-[450px] h-full flex flex-col rounded-[20px] overflow-visible rgb-animate-border relative" style={{ '--panel-inner-bg': 'var(--sidebar-bg)', color: 'var(--text)' }}>
+      <div className="panel-inner h-full flex flex-col">
+        <div className="px-5 py-6 border-b border-white/5 flex items-center justify-between relative z-10">
+          <div className="group cursor-default">
+            <div className="text-[16px] tracking-[0.5em] uppercase font-black" style={{ color: 'var(--text-h)' }}>DocGen</div>
+            <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">v1.0</div>
+          </div>
+          <button 
+            onClick={toggleTheme} 
+            className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden group"
+            style={{ '--panel-inner-bg': 'var(--code-bg)' }}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
+              {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
             </span>
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar relative z-10">
+          <div className="space-y-4">
+            <div className="text-[11px] uppercase tracking-[0.3em] font-bold text-blue-400/60">Documentation Type</div>
+            <div className="relative">
+              <select
+                className="w-full rounded-[20px] px-4 py-3.5 pr-10 text-xs outline-none transition appearance-none cursor-pointer"
+                style={{
+                  backgroundColor: 'var(--code-bg)',
+                  color: 'var(--text)',
+                  border: '1px solid var(--border)',
+                }}
+                value={documentData.documentType}
+                onChange={(e) => onDocumentChange('documentType', e.target.value)}
+                disabled={isGenerating}
+              >
+                <option>README</option>
+                <option>API DOCUMENT</option>
+                <option>CODE EXPLANATION</option>
+              </select>
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs opacity-30">▾</span>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <div className="text-[11px] uppercase tracking-[0.3em] font-bold text-blue-400/60">Code Snippet</div>
+              <div className="text-[10px] font-mono opacity-20">{documentData.content.length} chars</div>
+            </div>
+            <textarea
+              rows={6}
+              value={documentData.content}
+              onChange={(e) => onDocumentChange('content', e.target.value)}
+              placeholder="// Paste your code here..."
+              className="h-40 max-h-40 w-full resize-none overflow-y-auto rounded-[20px] border py-4 px-4 text-xs focus:border-blue-500/30 outline-none transition placeholder:opacity-20 custom-scrollbar"
+              style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text)' }}
+              disabled={isGenerating}
+            />
           </div>
         </div>
 
-        <div className="rounded-none p-4 rgb-animate-border relative" style={{ backgroundColor: 'var(--code-bg)' }}>
-          <div className="text-[10px] uppercase tracking-[0.35em] mb-3 font-bold rgb-text-shift" style={{ '--text-offset': '-1.5s' }}>Code Snippet</div>
-          <textarea
-            rows={10}
-            value={documentData.content}
-            onChange={(e) => onDocumentChange('content', e.target.value)}
-            placeholder="// Paste your code here..."
-            className="w-full rounded-none border-none py-4 px-4 text-xs focus:ring-2 focus:ring-violet-500/50 outline-none transition rgb-animate-border"
-            style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}
-            disabled={isGenerating}
-          />
-          <div className="text-[10px] text-right mt-2 font-mono opacity-70 rgb-text-shift" style={{ '--text-offset': '-2s' }}>{documentData.content.length} chars</div>
-        </div>
-      </div>
-
-      <div className="p-4 border-t space-y-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', borderRadius: '0' }}>
-        <button
-          onClick={onGenerate}
-          disabled={isGenerating || !documentData.content.trim()}
-          className="w-full rounded-none px-4 py-3 text-[13px] font-black uppercase tracking-[0.2em] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.98]"
-          style={{ backgroundColor: '#4b1d7a', color: '#fff', border: '1px solid #6d28d9' }}
-        >
-          {isGenerating ? (
-            <>
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/20 border-t-white"></span>
-              Generating...
-            </>
-          ) : (
-            'Generate Documentation'
-          )}
-        </button>
+        <div className="p-6 border-t border-white/5 space-y-4 relative z-10">
+          <button
+            onClick={onGenerate}
+            disabled={isGenerating || !documentData.content.trim()}
+            className="w-full rounded-[20px] px-4 py-4 text-[12px] font-black uppercase tracking-[0.25em] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 active:scale-[0.98] bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_25px_rgba(37,99,235,0.2)]"
+          >
+            {isGenerating ? (
+              <>
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/20 border-t-white"></span>
+                Generating...
+              </>
+            ) : (
+              'Generate Documentation'
+            )}
+          </button>
         <button
           onClick={onClear}
           disabled={isGenerating}
-          className="w-full rounded-none px-4 py-3 text-[13px] font-black uppercase tracking-[0.2em] transition-all disabled:opacity-50 active:scale-[0.98]"
-          style={{ backgroundColor: '#34114f', color: '#f5ecff', border: '1px solid #5b21b6' }}
+          className="w-full rounded-[20px] px-4 py-4 text-[12px] font-black uppercase tracking-[0.25em] transition-all disabled:opacity-50 active:scale-[0.98] border hover:brightness-110"
+          style={{ borderColor: 'var(--accent-border)', backgroundColor: 'var(--accent-bg)', color: 'var(--accent)' }}
         >
           Clear
         </button>
+        </div>
       </div>
     </aside>
   )
 }
-

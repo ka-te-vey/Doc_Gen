@@ -89,22 +89,22 @@ export default function ExportModal({ documentData, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 bg-blur">
-      <div id="export-modal" className="w-full max-w-3xl rounded-none border shadow-2xl overflow-hidden rgb-animate-border relative" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
+      <div id="export-modal" className="w-full max-w-3xl rounded-[20px] border shadow-2xl overflow-hidden relative" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
         <div className="border-b p-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
           <div className="flex items-center justify-between">
             <div>
               <div className="text-lg font-semibold">Export as PDF</div>
-              <div className="text-xs text-slate-400">Preview your generated documentation</div>
+              <div className="text-xs" style={{ color: 'var(--text)', opacity: 0.7 }}>Preview your generated documentation</div>
             </div>
-            <button onClick={onClose} className="rounded-none border border-white/20 px-2 py-1 text-xs hover:bg-white/10 transition">✕</button>
+            <button onClick={onClose} className="rounded-[20px] border px-2 py-1 text-xs transition" style={{ borderColor: 'var(--border)', color: 'var(--text)' }}>✕</button>
           </div>
         </div>
 
         <div className="p-4 space-y-4">
-          <div ref={previewRef} className="rounded-none border p-4 max-h-[60vh] overflow-y-auto custom-scrollbar" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text)' }}>
+          <div ref={previewRef} className="rounded-[20px] border p-4 max-h-[60vh] overflow-y-auto custom-scrollbar" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text)' }}>
             <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] border-b border-black/10 dark:border-white/10 pb-3 mb-4" style={{ color: 'var(--text)' }}>
               <div>
-                <div className="font-bold text-xs text-black">{documentData.title || 'Untitled Document'}</div>
+                <div className="font-bold text-xs" style={{ color: 'var(--text-h)' }}>{documentData.title || 'Untitled Document'}</div>
                 <div className="opacity-70">{documentData.documentType || 'README'}</div>
               </div>
               <div className="text-right">
@@ -125,19 +125,19 @@ export default function ExportModal({ documentData, onClose }) {
                           style={vscDarkPlus}
                           language={match[1]}
                           PreTag="div"
-                          className="rounded-none !my-4 !text-[11px]"
+                          className="rounded-[20px] !my-4 !text-[11px]"
                           {...props}
                         >
                           {String(children).replace(/\n$/, '')}
                         </SyntaxHighlighter>
                       ) : (
-                        <code className={`${className} bg-black/5 dark:bg-white/5 rounded-none px-1.5 py-0.5 font-mono text-[11px]`} {...props}>
+                        <code className={`${className} bg-black/5 dark:bg-white/5 rounded-[20px] px-1.5 py-0.5 font-mono text-[11px]`} {...props}>
                           {children}
                         </code>
                       )
                     },
                     table({children}) {
-                      return <div className="overflow-x-auto my-4 rounded-none border border-black/10 dark:border-white/10"><table className="min-w-full divide-y divide-black/10 dark:divide-white/10">{children}</table></div>
+                      return <div className="overflow-x-auto my-4 rounded-[20px] border border-black/10 dark:border-white/10"><table className="min-w-full divide-y divide-black/10 dark:divide-white/10">{children}</table></div>
                     },
                     th({children}) {
                       return <th className="px-3 py-2 bg-black/5 dark:bg-white/5 text-left text-[10px] font-semibold uppercase tracking-wider">{children}</th>
@@ -157,7 +157,7 @@ export default function ExportModal({ documentData, onClose }) {
             <label className="space-y-1 text-xs uppercase" style={{ color: 'var(--text)' }}>
               Paper size
               <select
-                className="w-full rounded-none border p-2 text-sm"
+                className="w-full rounded-[20px] border p-2 text-sm"
                 style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}
                 value={paperSize}
                 onChange={(e) => setPaperSize(e.target.value)}
@@ -169,7 +169,7 @@ export default function ExportModal({ documentData, onClose }) {
             <label className="space-y-1 text-xs uppercase" style={{ color: 'var(--text)' }}>
               Orientation
               <select
-                className="w-full rounded-none border p-2 text-sm"
+                className="w-full rounded-[20px] border p-2 text-sm"
                 style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}
                 value={orientation}
                 onChange={(e) => setOrientation(e.target.value)}
@@ -183,14 +183,15 @@ export default function ExportModal({ documentData, onClose }) {
           <div className="flex justify-end gap-2 border-t border-white/10 pt-3">
             <button
               onClick={onClose}
-              className="rounded-none border border-white/20 px-4 py-2 text-sm text-white/90 hover:bg-white/10"
+              className="rounded-[20px] border px-4 py-2 text-sm"
+              style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
             >
               Cancel
             </button>
             <button
               onClick={handleDownload}
               disabled={isExporting}
-              className="rounded-none bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500 disabled:opacity-50"
+              className="rounded-[20px] bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-500 disabled:opacity-50"
             >
               {isExporting ? 'Downloading...' : 'Download PDF'}
             </button>
