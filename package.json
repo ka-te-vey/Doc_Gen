@@ -1,0 +1,24 @@
+{
+  "name": "document-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "dev": "npm start",
+    "start:backend": "npm --prefix backend start",
+    "start:frontend": "npm --prefix frontend run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ka-te-vey/Document-Generator/issues"
+  },
+  "homepage": "https://github.com/ka-te-vey/Document-Generator#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
