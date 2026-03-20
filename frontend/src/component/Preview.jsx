@@ -13,7 +13,7 @@ function formatSavedTime(lastSavedAt) {
   })
 }
 
-function Preview({ documentData, onExportClick, onSaveDraft, onRestoreDraft, hasSavedDraft, lastSavedAt, isGenerating }) {
+function Preview({ documentData, onBack, onExportClick, onSaveDraft, onRestoreDraft, hasSavedDraft, lastSavedAt, isGenerating }) {
   const markdownComponents = useMemo(() => ({
     code({ inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '')
@@ -53,6 +53,13 @@ function Preview({ documentData, onExportClick, onSaveDraft, onRestoreDraft, has
             <span className="ml-4 opacity-50 font-bold" style={{ color: 'var(--text-h)' }}>PREVIEW</span>
           </div>
           <div className="flex flex-wrap items-center gap-2 md:justify-end">
+            <button
+              onClick={onBack}
+              className="rounded-[20px] border px-4 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all hover:bg-white/5"
+              style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
+            >
+              BACK
+            </button>
             <div
               className="rounded-full px-3 py-2 text-[9px] font-black tracking-[0.18em]"
               style={{

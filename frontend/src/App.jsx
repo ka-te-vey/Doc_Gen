@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Hero from "./component/Hero"
 import Sidebar from "./component/Sidebar"
 import Preview from "./component/Preview"
 import ExportModal from "./component/ExportModal"
@@ -62,6 +63,7 @@ export default function App() {
     if (typeof window === "undefined") return "dark"
     return localStorage.getItem(THEME_STORAGE_KEY) || "dark"
   })
+  const [isGeneratorView, setIsGeneratorView] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [hasSavedDraft, setHasSavedDraft] = useState(() => hasStoredValue(DRAFT_STORAGE_KEY))
   const [lastSavedAt, setLastSavedAt] = useState(() => hasStoredValue(DRAFT_STORAGE_KEY) ? Date.now() : null)
@@ -76,6 +78,22 @@ export default function App() {
     }
     localStorage.setItem(THEME_STORAGE_KEY, theme)
   }, [theme])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const currentState = window.history.state || {}
+    if (currentState.view !== "hero" && currentState.view !== "generator") {
+      window.history.replaceState({ ...currentState, view: "hero" }, "")
+    }
+
+    const handlePopState = (event) => {
+      setIsGeneratorView(event.state?.view === "generator")
+    }
+
+    window.addEventListener("popstate", handlePopState)
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [])
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -120,6 +138,27 @@ export default function App() {
     setSidebarData(restoredSidebarData)
     setPreviewData(restoredPreviewData)
     setHasSavedDraft(hasStoredValue(DRAFT_STORAGE_KEY))
+  }
+
+  const openGeneratorView = () => {
+    if (typeof window !== "undefined" && window.history.state?.view !== "generator") {
+      window.history.pushState({ ...(window.history.state || {}), view: "generator" }, "")
+    }
+    setIsGeneratorView(true)
+  }
+
+  const openSavedDraft = () => {
+    restoreDraftFromStorage()
+    openGeneratorView()
+  }
+
+  const returnToHero = () => {
+    if (typeof window !== "undefined" && window.history.state?.view === "generator") {
+      window.history.back()
+      return
+    }
+
+    setIsGeneratorView(false)
   }
 
   const generateFromDraft = async () => {
@@ -172,29 +211,40 @@ export default function App() {
       {/* Background Gradients for depth (No animations for performance) */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ background: 'var(--page-bg)' }}></div>
       
-      <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-4 rounded-[20px] p-4 relative z-10 lg:h-[85vh]">
-        <Sidebar 
-          documentData={sidebarData}
-          onDocumentChange={handleDocumentChange}
-          onGenerate={generateFromDraft}
-          onClear={clearDraft}
-          theme={theme}
-          toggleTheme={toggleTheme}
-          isGenerating={isGenerating}
-        />
-
-        <main className="flex-1 min-h-0 overflow-hidden relative">
-          <Preview
-            documentData={previewData}
-            onExportClick={() => setIsExportModalOpen(true)}
-            onSaveDraft={saveDraftToStorage}
-            onRestoreDraft={restoreDraftFromStorage}
-            hasSavedDraft={hasSavedDraft}
-            lastSavedAt={lastSavedAt}
+      {isGeneratorView ? (
+        <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-4 rounded-[20px] p-4 relative z-10 lg:h-[85vh]">
+          <Sidebar 
+            documentData={sidebarData}
+            onDocumentChange={handleDocumentChange}
+            onGenerate={generateFromDraft}
+            onClear={clearDraft}
+            theme={theme}
+            toggleTheme={toggleTheme}
             isGenerating={isGenerating}
           />
-        </main>
-      </div>
+
+          <main className="flex-1 min-h-0 overflow-hidden relative">
+            <Preview
+              documentData={previewData}
+              onBack={returnToHero}
+              onExportClick={() => setIsExportModalOpen(true)}
+              onSaveDraft={saveDraftToStorage}
+              onRestoreDraft={restoreDraftFromStorage}
+              hasSavedDraft={hasSavedDraft}
+              lastSavedAt={lastSavedAt}
+              isGenerating={isGenerating}
+            />
+          </main>
+        </div>
+      ) : (
+        <Hero
+          hasSavedDraft={hasSavedDraft}
+          onStartGenerating={openGeneratorView}
+          onOpenSavedDraft={openSavedDraft}
+          theme={theme}
+          toggleTheme={toggleTheme}
+        />
+      )}
 
       {isExportModalOpen && (
         <ExportModal
