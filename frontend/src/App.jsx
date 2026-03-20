@@ -43,7 +43,8 @@ export default function App() {
     if (!sidebarData.content.trim()) return
 
     setIsGenerating(true)
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+    // const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+    const apiUrl = "https://doc-gen-1.onrender.com"
     try {
       const response = await fetch(`${apiUrl}/api/generate`, {
         method: 'POST',
