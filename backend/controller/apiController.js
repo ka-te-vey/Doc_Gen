@@ -3,7 +3,7 @@ const Groq = require('groq-sdk');
 // groq instance will use process.env.GROQ_API_KEY which is loaded in server.js
 const getGroqInstance = () => {
     return new Groq({
-        apiKey: process.env.GROQ_API_KEY,
+        apiKey: process.env.VITE_GROQ_API_KEY,
     });
 };
 
