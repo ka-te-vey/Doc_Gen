@@ -8,6 +8,7 @@ export default function App() {
   const defaultDocument = {
     title: "Untitled Document",
     content: "",
+    
     author: "",
     documentType: "README",
     date: new Date().toISOString().split("T")[0]
