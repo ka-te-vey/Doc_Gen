@@ -4,6 +4,47 @@ import Preview from "./component/Preview"
 import ExportModal from "./component/ExportModal"
 import "./App.css"
 
+const DRAFT_STORAGE_KEY = "docgen_sidebar_data"
+const PREVIEW_STORAGE_KEY = "docgen_preview_data"
+const THEME_STORAGE_KEY = "theme"
+
+function readStoredValue(key, fallback) {
+  if (typeof window === "undefined") return fallback
+
+  try {
+    const storedValue = localStorage.getItem(key)
+    if (!storedValue) return fallback
+
+    const parsedValue = JSON.parse(storedValue)
+    return parsedValue && typeof parsedValue === "object"
+      ? { ...fallback, ...parsedValue }
+      : fallback
+  } catch {
+    return fallback
+  }
+}
+
+function writeStoredValue(key, value) {
+  if (typeof window === "undefined") return false
+
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+    return true
+  } catch {
+    return false
+  }
+}
+
+function hasStoredValue(key) {
+  if (typeof window === "undefined") return false
+
+  try {
+    return Boolean(localStorage.getItem(key))
+  } catch {
+    return false
+  }
+}
+
 export default function App() {
   const defaultDocument = {
     title: "Untitled Document",
@@ -13,21 +54,41 @@ export default function App() {
     documentType: "README",
     date: new Date().toISOString().split("T")[0]
   }
-  const [sidebarData, setSidebarData] = useState(defaultDocument)
-  const [previewData, setPreviewData] = useState(defaultDocument)
+  const [sidebarData, setSidebarData] = useState(() => readStoredValue(DRAFT_STORAGE_KEY, defaultDocument))
+  const [previewData, setPreviewData] = useState(() => readStoredValue(PREVIEW_STORAGE_KEY, defaultDocument))
 
   const [isExportModalOpen, setIsExportModalOpen] = useState(false)
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "dark"
+    return localStorage.getItem(THEME_STORAGE_KEY) || "dark"
+  })
   const [isGenerating, setIsGenerating] = useState(false)
+  const [hasSavedDraft, setHasSavedDraft] = useState(() => hasStoredValue(DRAFT_STORAGE_KEY))
+  const [lastSavedAt, setLastSavedAt] = useState(() => hasStoredValue(DRAFT_STORAGE_KEY) ? Date.now() : null)
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     if (theme === 'dark') {
       document.documentElement.classList.add('dark')
     } else {
       document.documentElement.classList.remove('dark')
     }
-    localStorage.setItem('theme', theme)
+    localStorage.setItem(THEME_STORAGE_KEY, theme)
   }, [theme])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    if (writeStoredValue(DRAFT_STORAGE_KEY, sidebarData)) {
+      setHasSavedDraft(true)
+      setLastSavedAt(Date.now())
+    }
+  }, [sidebarData])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    writeStoredValue(PREVIEW_STORAGE_KEY, previewData)
+  }, [previewData])
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark')
@@ -38,6 +99,27 @@ export default function App() {
       ...prev,
       [field]: value
     }))
+  }
+
+  const saveDraftToStorage = () => {
+    const isDraftSaved = writeStoredValue(DRAFT_STORAGE_KEY, sidebarData)
+    const isPreviewSaved = writeStoredValue(PREVIEW_STORAGE_KEY, previewData)
+
+    if (isDraftSaved) {
+      setHasSavedDraft(true)
+      setLastSavedAt(Date.now())
+    }
+
+    return isDraftSaved && isPreviewSaved
+  }
+
+  const restoreDraftFromStorage = () => {
+    const restoredSidebarData = readStoredValue(DRAFT_STORAGE_KEY, defaultDocument)
+    const restoredPreviewData = readStoredValue(PREVIEW_STORAGE_KEY, defaultDocument)
+
+    setSidebarData(restoredSidebarData)
+    setPreviewData(restoredPreviewData)
+    setHasSavedDraft(hasStoredValue(DRAFT_STORAGE_KEY))
   }
 
   const generateFromDraft = async () => {
@@ -77,6 +159,12 @@ export default function App() {
   const clearDraft = () => {
     setSidebarData(defaultDocument)
     setPreviewData(defaultDocument)
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(DRAFT_STORAGE_KEY)
+      localStorage.removeItem(PREVIEW_STORAGE_KEY)
+    }
+    setHasSavedDraft(false)
+    setLastSavedAt(null)
   }
 
   return (
@@ -96,7 +184,15 @@ export default function App() {
         />
 
         <main className="flex-1 min-h-0 overflow-hidden relative">
-          <Preview documentData={previewData} onExportClick={() => setIsExportModalOpen(true)} />
+          <Preview
+            documentData={previewData}
+            onExportClick={() => setIsExportModalOpen(true)}
+            onSaveDraft={saveDraftToStorage}
+            onRestoreDraft={restoreDraftFromStorage}
+            hasSavedDraft={hasSavedDraft}
+            lastSavedAt={lastSavedAt}
+            isGenerating={isGenerating}
+          />
         </main>
       </div>
 

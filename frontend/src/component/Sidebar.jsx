@@ -1,6 +1,14 @@
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 
-export default function Sidebar({ documentData, onDocumentChange, onGenerate, onClear, theme, toggleTheme, isGenerating }) {
+export default function Sidebar({
+  documentData,
+  onDocumentChange,
+  onGenerate,
+  onClear,
+  theme,
+  toggleTheme,
+  isGenerating
+}) {
   return (
     <aside className="w-full lg:w-[450px] h-full flex flex-col rounded-[20px] overflow-visible rgb-animate-border relative" style={{ '--panel-inner-bg': 'var(--sidebar-bg)', color: 'var(--text)' }}>
       <div className="panel-inner h-full flex flex-col">
@@ -59,6 +67,7 @@ export default function Sidebar({ documentData, onDocumentChange, onGenerate, on
               disabled={isGenerating}
             />
           </div>
+
         </div>
 
         <div className="p-6 border-t border-white/5 space-y-4 relative z-10">

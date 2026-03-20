@@ -4,7 +4,16 @@ import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-function Preview({ documentData, onExportClick }) {
+function formatSavedTime(lastSavedAt) {
+  if (!lastSavedAt) return "Not saved yet"
+
+  return new Date(lastSavedAt).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+}
+
+function Preview({ documentData, onExportClick, onSaveDraft, onRestoreDraft, hasSavedDraft, lastSavedAt, isGenerating }) {
   const markdownComponents = useMemo(() => ({
     code({ inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '')
@@ -34,7 +43,7 @@ function Preview({ documentData, onExportClick }) {
   return (
     <div className="h-full min-h-0 rounded-[20px] relative overflow-visible rgb-animate-border" style={{ '--panel-inner-bg': 'var(--preview-bg)', color: 'var(--text)' }}>
       <div className="panel-inner h-full min-h-0 flex flex-col gap-4">
-        <div className="flex items-center justify-between rounded-[20px] px-6 py-5 text-[11px] uppercase tracking-[0.4em] font-black border-b border-white/5 relative z-10" style={{ backgroundColor: 'var(--preview-bg)' }}>
+        <div className="flex flex-col gap-4 rounded-[20px] px-6 py-5 text-[11px] uppercase tracking-[0.4em] font-black border-b border-white/5 relative z-10 md:flex-row md:items-center md:justify-between" style={{ backgroundColor: 'var(--preview-bg)' }}>
           <div className="flex items-center gap-4">
             <div className="flex gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
@@ -43,7 +52,35 @@ function Preview({ documentData, onExportClick }) {
             </div>
             <span className="ml-4 opacity-50 font-bold" style={{ color: 'var(--text-h)' }}>PREVIEW</span>
           </div>
-          <button onClick={onExportClick} className="rounded-[20px] px-6 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all rainbow-button">EXPORT PDF</button>
+          <div className="flex flex-wrap items-center gap-2 md:justify-end">
+            <div
+              className="rounded-full px-3 py-2 text-[9px] font-black tracking-[0.18em]"
+              style={{
+                backgroundColor: hasSavedDraft ? 'var(--accent-bg)' : 'transparent',
+                color: hasSavedDraft ? 'var(--accent)' : 'var(--text)',
+                border: `1px solid ${hasSavedDraft ? 'var(--accent-border)' : 'var(--border)'}`
+              }}
+            >
+              {hasSavedDraft ? `DRAFT SAVED ${formatSavedTime(lastSavedAt)}` : 'LOCAL AUTO SAVE'}
+            </div>
+            <button
+              onClick={onSaveDraft}
+              disabled={isGenerating}
+              className="rounded-[20px] border px-4 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all disabled:opacity-50 hover:brightness-110"
+              style={{ borderColor: 'var(--accent-border)', backgroundColor: 'var(--accent-bg)', color: 'var(--accent)' }}
+            >
+              SAVE DRAFT
+            </button>
+            <button
+              onClick={onRestoreDraft}
+              disabled={isGenerating || !hasSavedDraft}
+              className="rounded-[20px] border px-4 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all disabled:opacity-50 hover:bg-white/5"
+              style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
+            >
+              RESTORE
+            </button>
+            <button onClick={onExportClick} className="rounded-[20px] px-6 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all rainbow-button">EXPORT PDF</button>
+          </div>
         </div>
 
         <div className="flex-1 min-h-0 rounded-[20px] p-6 md:p-8 relative z-10" style={{ backgroundColor: 'var(--code-bg)' }}>
