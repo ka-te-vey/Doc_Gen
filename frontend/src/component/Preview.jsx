@@ -1,4 +1,5 @@
 import { memo, useMemo } from 'react'
+import { GiDinosaurRex } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -45,11 +46,7 @@ function Preview({ documentData, onBack, onExportClick, onSaveDraft, onRestoreDr
       <div className="panel-inner h-full min-h-0 flex flex-col gap-4">
         <div className="flex flex-col gap-4 rounded-[20px] px-6 py-5 text-[11px] uppercase tracking-[0.4em] font-black border-b border-white/5 relative z-10 md:flex-row md:items-center md:justify-between" style={{ backgroundColor: 'var(--preview-bg)' }}>
           <div className="flex items-center gap-4">
-            <div className="flex gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
-              <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
-            </div>
+            <GiDinosaurRex className="text-[24px] text-red-500" />
             <span className="ml-4 opacity-50 font-bold" style={{ color: 'var(--text-h)' }}>PREVIEW</span>
           </div>
           <div className="flex flex-wrap items-center gap-2 md:justify-end">

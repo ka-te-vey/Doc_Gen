@@ -1,3 +1,4 @@
+import { GiDinosaurRex } from "react-icons/gi"
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi"
 
 export default function Hero({ hasSavedDraft, onStartGenerating, onOpenSavedDraft, theme, toggleTheme }) {
@@ -7,11 +8,7 @@ export default function Hero({ hasSavedDraft, onStartGenerating, onOpenSavedDraf
         <div className="panel-inner rounded-[20px] min-h-[78vh] flex flex-col">
           <div className="flex items-center justify-between border-b border-white/5 px-6 py-5">
             <div className="flex items-center gap-4">
-              <div className="flex gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]"></span>
-                <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]"></span>
-                <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f]"></span>
-              </div>
+              <GiDinosaurRex className="text-[24px] text-red-500" />
               <div>
                 <div className="text-[16px] tracking-[0.5em] uppercase font-black" style={{ color: 'var(--text-h)' }}>DocGen</div>
                 <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">AI documentation workspace</div>
