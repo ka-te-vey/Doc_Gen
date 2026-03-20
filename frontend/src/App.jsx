@@ -80,8 +80,14 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-6 px-2" style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
-      <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-6 border rounded-3xl p-6 shadow-2xl" style={{ backgroundColor: 'var(--code-bg)', borderColor: 'var(--border)' }}>
+    <div className="min-h-screen flex items-center justify-center py-10 px-4 relative overflow-hidden" style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
+      <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-8 rgb-animate-border rounded-none p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative z-10 transition-all duration-500 lg:h-[82vh]" style={{ backgroundColor: 'var(--code-bg)' }}>
+        {/* Corner Glows for Main Panel */}
+        <div className="corner-glow corner-tl"></div>
+        <div className="corner-glow corner-tr"></div>
+        <div className="corner-glow corner-bl"></div>
+        <div className="corner-glow corner-br"></div>
+
         <Sidebar 
           documentData={sidebarData}
           onDocumentChange={handleDocumentChange}
@@ -92,8 +98,14 @@ export default function App() {
           isGenerating={isGenerating}
         />
 
-        <main className="flex-1 overflow-y-auto rounded-xl p-2" style={{ backgroundColor: 'var(--code-bg)' }}>
-          <div className="h-full rounded-xl border border-white/10 p-2" style={{ backgroundColor: 'var(--bg)' }}>
+        <main className="flex-1 min-h-0 overflow-hidden rounded-none p-1 relative" style={{ backgroundColor: 'transparent' }}>
+          <div className="h-full min-h-0 rounded-none rgb-animate-border p-1 overflow-hidden" style={{ backgroundColor: 'var(--bg)' }}>
+            {/* Inner Corner Glows */}
+            <div className="corner-glow corner-tl !scale-50"></div>
+            <div className="corner-glow corner-tr !scale-50"></div>
+            <div className="corner-glow corner-bl !scale-50"></div>
+            <div className="corner-glow corner-br !scale-50"></div>
+            
             <Preview documentData={previewData} onExportClick={() => setIsExportModalOpen(true)} />
           </div>
         </main>
