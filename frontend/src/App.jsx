@@ -3,10 +3,10 @@ import Hero from "./component/Hero"
 import Sidebar from "./component/Sidebar"
 import Preview from "./component/Preview"
 import ExportModal from "./component/ExportModal"
+import ChatHistorySidebar from "./component/ChatHistorySidebar"
 import "./App.css"
 
-const DRAFT_STORAGE_KEY = "docgen_sidebar_data"
-const PREVIEW_STORAGE_KEY = "docgen_preview_data"
+const CHAT_HISTORY_STORAGE_KEY = "docgen_chat_history"
 const THEME_STORAGE_KEY = "theme"
 
 function readStoredValue(key, fallback) {
@@ -36,16 +36,6 @@ function writeStoredValue(key, value) {
   }
 }
 
-function hasStoredValue(key) {
-  if (typeof window === "undefined") return false
-
-  try {
-    return Boolean(localStorage.getItem(key))
-  } catch {
-    return false
-  }
-}
-
 export default function App() {
   const defaultDocument = {
     title: "Untitled Document",
@@ -55,8 +45,8 @@ export default function App() {
     documentType: "README",
     date: new Date().toISOString().split("T")[0]
   }
-  const [sidebarData, setSidebarData] = useState(() => readStoredValue(DRAFT_STORAGE_KEY, defaultDocument))
-  const [previewData, setPreviewData] = useState(() => readStoredValue(PREVIEW_STORAGE_KEY, defaultDocument))
+  const [sidebarData, setSidebarData] = useState(defaultDocument)
+  const [previewData, setPreviewData] = useState(defaultDocument)
 
   const [isExportModalOpen, setIsExportModalOpen] = useState(false)
   const [theme, setTheme] = useState(() => {
@@ -65,8 +55,16 @@ export default function App() {
   })
   const [isGeneratorView, setIsGeneratorView] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
-  const [hasSavedDraft, setHasSavedDraft] = useState(() => hasStoredValue(DRAFT_STORAGE_KEY))
-  const [lastSavedAt, setLastSavedAt] = useState(() => hasStoredValue(DRAFT_STORAGE_KEY) ? Date.now() : null)
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false)
+  const [chatHistory, setChatHistory] = useState(() => {
+    if (typeof window === "undefined") return []
+    try {
+      const storedHistory = JSON.parse(localStorage.getItem(CHAT_HISTORY_STORAGE_KEY) || "[]")
+      return Array.isArray(storedHistory) ? storedHistory : []
+    } catch {
+      return []
+    }
+  })
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -97,16 +95,8 @@ export default function App() {
 
   useEffect(() => {
     if (typeof window === "undefined") return
-    if (writeStoredValue(DRAFT_STORAGE_KEY, sidebarData)) {
-      setHasSavedDraft(true)
-      setLastSavedAt(Date.now())
-    }
-  }, [sidebarData])
-
-  useEffect(() => {
-    if (typeof window === "undefined") return
-    writeStoredValue(PREVIEW_STORAGE_KEY, previewData)
-  }, [previewData])
+    writeStoredValue(CHAT_HISTORY_STORAGE_KEY, chatHistory)
+  }, [chatHistory])
 
   const toggleTheme = () => {
     setTheme(prev => prev === 'dark' ? 'light' : 'dark')
@@ -119,37 +109,11 @@ export default function App() {
     }))
   }
 
-  const saveDraftToStorage = () => {
-    const isDraftSaved = writeStoredValue(DRAFT_STORAGE_KEY, sidebarData)
-    const isPreviewSaved = writeStoredValue(PREVIEW_STORAGE_KEY, previewData)
-
-    if (isDraftSaved) {
-      setHasSavedDraft(true)
-      setLastSavedAt(Date.now())
-    }
-
-    return isDraftSaved && isPreviewSaved
-  }
-
-  const restoreDraftFromStorage = () => {
-    const restoredSidebarData = readStoredValue(DRAFT_STORAGE_KEY, defaultDocument)
-    const restoredPreviewData = readStoredValue(PREVIEW_STORAGE_KEY, defaultDocument)
-
-    setSidebarData(restoredSidebarData)
-    setPreviewData(restoredPreviewData)
-    setHasSavedDraft(hasStoredValue(DRAFT_STORAGE_KEY))
-  }
-
   const openGeneratorView = () => {
     if (typeof window !== "undefined" && window.history.state?.view !== "generator") {
       window.history.pushState({ ...(window.history.state || {}), view: "generator" }, "")
     }
     setIsGeneratorView(true)
-  }
-
-  const openSavedDraft = () => {
-    restoreDraftFromStorage()
-    openGeneratorView()
   }
 
   const returnToHero = () => {
@@ -182,11 +146,24 @@ export default function App() {
 
       const data = await response.json()
       const generatedContent = data.generatedContent || 'Failed to generate content.'
-      
-      setPreviewData({
+
+      const nextPreviewData = {
         ...sidebarData,
         content: generatedContent
-      })
+      }
+
+      setPreviewData(nextPreviewData)
+      setChatHistory((prev) => [
+        {
+          id: Date.now(),
+          createdAt: Date.now(),
+          title: (sidebarData.title || "Untitled Document").trim() || "Untitled Document",
+          documentType: sidebarData.documentType || "README",
+          input: { ...sidebarData },
+          output: { ...nextPreviewData }
+        },
+        ...prev
+      ].slice(0, 40))
     } catch (err) {
       console.error('Generation failed:', err)
       alert('Generation failed. Please check your API key and connection.')
@@ -198,18 +175,49 @@ export default function App() {
   const clearDraft = () => {
     setSidebarData(defaultDocument)
     setPreviewData(defaultDocument)
+  }
+
+  const restoreFromHistory = (historyItem) => {
+    if (!historyItem || typeof historyItem !== "object") return
+    setSidebarData(historyItem.input || defaultDocument)
+    setPreviewData(historyItem.output || defaultDocument)
+    openGeneratorView()
+    setIsHistoryOpen(false)
+  }
+
+  const clearHistory = () => {
+    setChatHistory([])
     if (typeof window !== "undefined") {
-      localStorage.removeItem(DRAFT_STORAGE_KEY)
-      localStorage.removeItem(PREVIEW_STORAGE_KEY)
+      localStorage.removeItem(CHAT_HISTORY_STORAGE_KEY)
     }
-    setHasSavedDraft(false)
-    setLastSavedAt(null)
+  }
+
+  const deleteHistoryItem = (id) => {
+    setChatHistory((prev) => prev.filter((item) => item.id !== id))
+  }
+
+  const createNewChat = () => {
+    setSidebarData(defaultDocument)
+    setPreviewData(defaultDocument)
+    openGeneratorView()
+    setIsHistoryOpen(false)
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10 px-4 relative overflow-hidden" style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
       {/* Background Gradients for depth (No animations for performance) */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ background: 'var(--page-bg)' }}></div>
+
+      <ChatHistorySidebar
+        isOpen={isHistoryOpen}
+        onToggle={() => setIsHistoryOpen((prev) => !prev)}
+        onClose={() => setIsHistoryOpen(false)}
+        onNewChat={createNewChat}
+        items={chatHistory}
+        onRestore={restoreFromHistory}
+        onDelete={deleteHistoryItem}
+        onClear={clearHistory}
+      />
       
       {isGeneratorView ? (
         <div className="w-full max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-4 rounded-[20px] p-4 relative z-10 lg:h-[85vh]">
@@ -228,19 +236,12 @@ export default function App() {
               documentData={previewData}
               onBack={returnToHero}
               onExportClick={() => setIsExportModalOpen(true)}
-              onSaveDraft={saveDraftToStorage}
-              onRestoreDraft={restoreDraftFromStorage}
-              hasSavedDraft={hasSavedDraft}
-              lastSavedAt={lastSavedAt}
-              isGenerating={isGenerating}
             />
           </main>
         </div>
       ) : (
         <Hero
-          hasSavedDraft={hasSavedDraft}
           onStartGenerating={openGeneratorView}
-          onOpenSavedDraft={openSavedDraft}
           theme={theme}
           toggleTheme={toggleTheme}
         />

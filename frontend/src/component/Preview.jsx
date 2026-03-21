@@ -5,16 +5,7 @@ import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-function formatSavedTime(lastSavedAt) {
-  if (!lastSavedAt) return "Not saved yet"
-
-  return new Date(lastSavedAt).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })
-}
-
-function Preview({ documentData, onBack, onExportClick, onSaveDraft, onRestoreDraft, hasSavedDraft, lastSavedAt, isGenerating }) {
+function Preview({ documentData, onBack, onExportClick }) {
   const markdownComponents = useMemo(() => ({
     code({ inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '')
@@ -56,32 +47,6 @@ function Preview({ documentData, onBack, onExportClick, onSaveDraft, onRestoreDr
               style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
             >
               BACK
-            </button>
-            <div
-              className="rounded-full px-3 py-2 text-[9px] font-black tracking-[0.18em]"
-              style={{
-                backgroundColor: hasSavedDraft ? 'var(--accent-bg)' : 'transparent',
-                color: hasSavedDraft ? 'var(--accent)' : 'var(--text)',
-                border: `1px solid ${hasSavedDraft ? 'var(--accent-border)' : 'var(--border)'}`
-              }}
-            >
-              {hasSavedDraft ? `DRAFT SAVED ${formatSavedTime(lastSavedAt)}` : 'LOCAL AUTO SAVE'}
-            </div>
-            <button
-              onClick={onSaveDraft}
-              disabled={isGenerating}
-              className="rounded-[20px] border px-4 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all disabled:opacity-50 hover:brightness-110"
-              style={{ borderColor: 'var(--accent-border)', backgroundColor: 'var(--accent-bg)', color: 'var(--accent)' }}
-            >
-              SAVE DRAFT
-            </button>
-            <button
-              onClick={onRestoreDraft}
-              disabled={isGenerating || !hasSavedDraft}
-              className="rounded-[20px] border px-4 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all disabled:opacity-50 hover:bg-white/5"
-              style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
-            >
-              RESTORE
             </button>
             <button onClick={onExportClick} className="rounded-[20px] px-6 py-2.5 text-[10px] font-black tracking-[0.15em] transition-all rainbow-button">EXPORT PDF</button>
           </div>

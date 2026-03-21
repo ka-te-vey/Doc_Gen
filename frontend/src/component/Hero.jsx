@@ -1,7 +1,7 @@
 import { GiDinosaurRex } from "react-icons/gi"
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi"
 
-export default function Hero({ hasSavedDraft, onStartGenerating, onOpenSavedDraft, theme, toggleTheme }) {
+export default function Hero({ onStartGenerating, theme, toggleTheme }) {
   return (
     <div className="w-full max-w-[1400px] mx-auto relative z-10">
       <div className="rounded-[20px] rgb-animate-border relative overflow-visible" style={{ '--panel-inner-bg': 'var(--preview-bg)', color: 'var(--text)' }}>
@@ -47,29 +47,29 @@ export default function Hero({ hasSavedDraft, onStartGenerating, onOpenSavedDraf
                   >
                     Generate Now
                   </button>
-                  {hasSavedDraft && (
-                    <button
-                      onClick={onOpenSavedDraft}
-                      className="rounded-[20px] border px-6 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-all hover:bg-white/5"
-                      style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
-                    >
-                      Open Saved Draft
-                    </button>
-                  )}
                 </div>
 
                 <div className="mt-10 grid w-full max-w-5xl gap-3 md:grid-cols-3">
-                  <div className="rounded-[20px] border p-4" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
+                  <div
+                    className="rounded-[20px] border p-4 transition-transform transition-shadow duration-150 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                    style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
+                  >
                     <div className="text-[10px] font-black uppercase tracking-[0.25em] text-blue-400/70">Input</div>
                     <div className="mt-3 text-sm font-semibold" style={{ color: 'var(--text-h)' }}>Paste source code</div>
                     <div className="mt-2 text-xs opacity-60">Keep your implementation local in the browser while drafting.</div>
                   </div>
-                  <div className="rounded-[20px] border p-4" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
+                  <div
+                    className="rounded-[20px] border p-4 transition-transform transition-shadow duration-150 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                    style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
+                  >
                     <div className="text-[10px] font-black uppercase tracking-[0.25em] text-blue-400/70">Generate</div>
                     <div className="mt-3 text-sm font-semibold" style={{ color: 'var(--text-h)' }}>Choose output type</div>
                     <div className="mt-2 text-xs opacity-60">Switch between README, API docs, or code explanation flows.</div>
                   </div>
-                  <div className="rounded-[20px] border p-4" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
+                  <div
+                    className="rounded-[20px] border p-4 transition-transform transition-shadow duration-150 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                    style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
+                  >
                     <div className="text-[10px] font-black uppercase tracking-[0.25em] text-blue-400/70">Preview</div>
                     <div className="mt-3 text-sm font-semibold" style={{ color: 'var(--text-h)' }}>Review and export</div>
                     <div className="mt-2 text-xs opacity-60">Save locally, restore drafts, and export the final document as PDF.</div>
