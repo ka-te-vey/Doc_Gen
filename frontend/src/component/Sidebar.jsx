@@ -14,7 +14,7 @@ export default function Sidebar({
       <div className="panel-inner h-full flex flex-col">
         <div className="px-5 py-6 border-b border-white/5 flex items-center justify-between relative z-10">
           <div className="group cursor-default">
-            <div className="text-[16px] tracking-[0.5em] uppercase font-black" style={{ color: 'var(--text-h)' }}>DocGen</div>
+            <div className="docgen-brand text-[16px] tracking-[0.5em] uppercase font-black">DocGen</div>
             <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">v1.0</div>
           </div>
           <button 

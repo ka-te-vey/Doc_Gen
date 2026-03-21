@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Flavors&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -145,4 +150,66 @@ body {
   border-left: 2px solid rgba(56, 189, 248, 0.4);
   padding-left: 1ch;
   margin-left: -1ch;
+}
+
+.docgen-brand {
+  font-family: 'Rubik Puddles', cursive;
+  color: #ef4444;
+}
+
+@keyframes hero-headline-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes hero-headline-glow {
+  0%, 100% { text-shadow: 0 0 0 rgba(56, 189, 248, 0); }
+  50% { text-shadow: 0 8px 28px rgba(56, 189, 248, 0.22); }
+}
+
+@keyframes hero-headline-balloon {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-1px) scale(1.1); }
+  60% { transform: translateY(0) scale(1.06); }
+}
+
+.hero-headline {
+  font-family: 'Rock Salt', cursive;
+  color: transparent;
+  background-image: linear-gradient(120deg, #e2e8f0 0%, #38bdf8 45%, #a78bfa 70%, #f8fafc 100%);
+  background-size: 220% 220%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: hero-headline-shift 8s ease-in-out infinite, hero-headline-glow 4s ease-in-out infinite;
+}
+
+.dark .hero-headline {
+  background-image: linear-gradient(120deg, #ffffff 0%, #67e8f9 45%, #93c5fd 70%, #ffffff 100%);
+}
+
+.hero-headline .hero-word {
+  display: inline-block;
+  transform-origin: center bottom;
+  animation: hero-headline-balloon 2.2s ease-in-out infinite;
+}
+
+.hero-headline .hero-word:nth-child(1) { animation-delay: 0s; }
+.hero-headline .hero-word:nth-child(2) { animation-delay: 0.08s; }
+.hero-headline .hero-word:nth-child(3) { animation-delay: 0.16s; }
+.hero-headline .hero-word:nth-child(4) { animation-delay: 0.24s; }
+.hero-headline .hero-word:nth-child(5) { animation-delay: 0.32s; }
+.hero-headline .hero-word:nth-child(6) { animation-delay: 0.4s; }
+.hero-headline .hero-word:nth-child(7) { animation-delay: 0.48s; }
+.hero-headline .hero-word:nth-child(8) { animation-delay: 0.56s; }
+.hero-headline .hero-word:nth-child(9) { animation-delay: 0.64s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-headline {
+    animation: none;
+    background-size: 100% 100%;
+  }
+  .hero-headline .hero-word {
+    animation: none;
+  }
 }

@@ -18,7 +18,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
             <div className="flex items-center gap-4">
               <GiDinosaurRex className="text-[24px] text-red-500" />
               <div>
-                <div className="text-[16px] tracking-[0.5em] uppercase font-black" style={{ color: 'var(--text-h)' }}>DocGen</div>
+                <div className="docgen-brand text-[16px] tracking-[0.5em] uppercase font-black">DocGen</div>
                 <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">AI documentation workspace</div>
               </div>
             </div>
@@ -70,8 +70,16 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                 <div className="inline-flex rounded-full border px-3 py-2 text-[10px] font-black uppercase tracking-[0.25em]" style={{ borderColor: 'var(--accent-border)', backgroundColor: 'var(--accent-bg)', color: 'var(--accent)' }}>
                   Code to docs in one pass
                 </div>
-                <h1 className="mt-6 text-4xl md:text-6xl font-black tracking-[-0.06em] leading-[0.92]" style={{ color: 'var(--text-h)' }}>
-                  Generate polished developer docs from raw code in seconds.
+                <h1 className="hero-headline mt-6 text-4xl md:text-6xl font-black tracking-[-0.06em] leading-[0.92]">
+                  <span className="hero-word">Generate</span>{" "}
+                  <span className="hero-word">polished</span>{" "}
+                  <span className="hero-word">developer</span>{" "}
+                  <span className="hero-word">docs</span>{" "}
+                  <span className="hero-word">from</span>{" "}
+                  <span className="hero-word">raw</span>{" "}
+                  <span className="hero-word">code</span>{" "}
+                  <span className="hero-word">in</span>{" "}
+                  <span className="hero-word">seconds.</span>
                 </h1>
                 <p className="mt-6 max-w-2xl text-sm md:text-base leading-7 opacity-75">
                   Paste a snippet, choose a document type, and turn rough implementation details into a clean README, API document, or code explanation with the same sharp preview workflow below.
