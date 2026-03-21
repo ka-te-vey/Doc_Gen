@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Flavors&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wellfleet&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -157,15 +158,24 @@ body {
   color: #ef4444;
 }
 
-@keyframes hero-headline-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes hero-headline-alien-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 8px rgba(122, 255, 166, 0.45),
+      0 0 18px rgba(62, 255, 212, 0.35),
+      0 0 30px rgba(96, 165, 250, 0.25);
+  }
+  50% {
+    text-shadow:
+      0 0 12px rgba(134, 239, 172, 0.75),
+      0 0 26px rgba(45, 212, 191, 0.65),
+      0 0 40px rgba(56, 189, 248, 0.5);
+  }
 }
 
-@keyframes hero-headline-glow {
-  0%, 100% { text-shadow: 0 0 0 rgba(56, 189, 248, 0); }
-  50% { text-shadow: 0 8px 28px rgba(56, 189, 248, 0.22); }
+@keyframes hero-headline-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
 }
 
 @keyframes hero-headline-balloon {
@@ -175,21 +185,22 @@ body {
 }
 
 .hero-headline {
-  font-family: 'Rock Salt', cursive;
-  color: transparent;
-  background-image: linear-gradient(120deg, #e2e8f0 0%, #38bdf8 45%, #a78bfa 70%, #f8fafc 100%);
-  background-size: 220% 220%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: hero-headline-shift 8s ease-in-out infinite, hero-headline-glow 4s ease-in-out infinite;
+  font-family: 'Wellfleet', serif;
+  color: #d9ffe8;
+  text-shadow:
+    0 0 10px rgba(134, 239, 172, 0.65),
+    0 0 24px rgba(45, 212, 191, 0.55),
+    0 0 38px rgba(56, 189, 248, 0.4);
+  animation: hero-headline-alien-glow 2.8s ease-in-out infinite, hero-headline-drift 6s ease-in-out infinite;
 }
 
 .dark .hero-headline {
-  background-image: linear-gradient(120deg, #ffffff 0%, #67e8f9 45%, #93c5fd 70%, #ffffff 100%);
+  color: #ecfff3;
 }
 
 .hero-headline .hero-word {
   display: inline-block;
+  text-shadow: inherit;
   transform-origin: center bottom;
   animation: hero-headline-balloon 2.2s ease-in-out infinite;
 }
@@ -207,7 +218,10 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .hero-headline {
     animation: none;
-    background-size: 100% 100%;
+    text-shadow:
+      0 0 8px rgba(134, 239, 172, 0.55),
+      0 0 20px rgba(45, 212, 191, 0.45),
+      0 0 30px rgba(56, 189, 248, 0.3);
   }
   .hero-headline .hero-word {
     animation: none;
