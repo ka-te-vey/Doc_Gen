@@ -209,6 +209,7 @@ export default function App() {
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ background: 'var(--page-bg)' }}></div>
 
       <ChatHistorySidebar
+        showToggle={isGeneratorView}
         isOpen={isHistoryOpen}
         onToggle={() => setIsHistoryOpen((prev) => !prev)}
         onClose={() => setIsHistoryOpen(false)}

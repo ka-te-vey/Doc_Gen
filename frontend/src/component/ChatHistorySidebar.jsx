@@ -16,8 +16,10 @@ function trimText(text, maxLength = 110) {
   return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text
 }
 
-export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewChat, items, onRestore, onDelete, onClear }) {
+export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewChat, items, onRestore, onDelete, onClear, showToggle = true }) {
   const [activeDeleteId, setActiveDeleteId] = useState(null)
+
+  if (!showToggle) return null
 
   return (
     <>

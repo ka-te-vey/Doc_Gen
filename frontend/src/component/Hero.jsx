@@ -2,11 +2,18 @@ import { GiDinosaurRex } from "react-icons/gi"
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi"
 
 export default function Hero({ onStartGenerating, theme, toggleTheme }) {
+  const navItems = [
+    { label: "Home", href: "#" },
+    { label: "Price", href: "#price" },
+    { label: "Doc", href: "#docs" },
+    { label: "Contact", href: "#contact" }
+  ]
+
   return (
     <div className="w-full max-w-[1400px] mx-auto relative z-10">
       <div className="rounded-[20px] rgb-animate-border relative overflow-visible" style={{ '--panel-inner-bg': 'var(--preview-bg)', color: 'var(--text)' }}>
         <div className="panel-inner rounded-[20px] min-h-[78vh] flex flex-col">
-          <div className="flex items-center justify-between border-b border-white/5 px-6 py-5">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 px-6 py-5">
             <div className="flex items-center gap-4">
               <GiDinosaurRex className="text-[24px] text-red-500" />
               <div>
@@ -14,16 +21,45 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                 <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">AI documentation workspace</div>
               </div>
             </div>
-            <button
-              onClick={toggleTheme}
-              className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden"
-              style={{ '--panel-inner-bg': 'var(--code-bg)' }}
-              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            >
-              <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
-                {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
-              </span>
-            </button>
+
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="rounded-[14px] border border-transparent px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/10 hover:bg-white/5"
+                  style={{ color: 'var(--text-h)' }}
+                >
+                  {item.label}
+                </a>
+              ))}
+
+              <button
+                type="button"
+                className="rounded-[14px] border border-white/10 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5"
+                style={{ color: 'var(--text-h)' }}
+              >
+                Sign in
+              </button>
+              <button
+                type="button"
+                className="rounded-[14px] border border-white/10 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5"
+                style={{ color: 'var(--text-h)' }}
+              >
+                Sign out
+              </button>
+
+              <button
+                onClick={toggleTheme}
+                className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden"
+                style={{ '--panel-inner-bg': 'var(--code-bg)' }}
+                title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              >
+                <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
+                  {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
+                </span>
+              </button>
+            </div>
           </div>
 
           <div className="flex-1 p-4">
