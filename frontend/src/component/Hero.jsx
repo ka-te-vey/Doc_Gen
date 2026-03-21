@@ -1,5 +1,6 @@
 import { GiDinosaurRex } from "react-icons/gi"
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi"
+import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi"
 
 export default function Hero({ onStartGenerating, theme, toggleTheme }) {
   const navItems = [
@@ -114,6 +115,56 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
               </div>
             </section>
           </div>
+
+          <footer className="border-t border-white/5 px-6 py-7">
+            <div className="grid items-start gap-7 text-left sm:grid-cols-2 lg:grid-cols-4">
+              <div className="min-w-0">
+                <div className="text-[11px] font-black uppercase tracking-[0.12em]" style={{ color: "var(--text-h)" }}>Product</div>
+                <div className="mt-3 flex flex-col gap-2.5 text-sm leading-5 opacity-75">
+                  <a href="#features" className="transition-opacity hover:opacity-100">Features</a>
+                  <a href="#price" className="transition-opacity hover:opacity-100">Pricing</a>
+                  <a href="#docs" className="transition-opacity hover:opacity-100">Documentation</a>
+                  <a href="#api" className="transition-opacity hover:opacity-100">API</a>
+                </div>
+              </div>
+
+              <div className="min-w-0">
+                <div className="text-[11px] font-black uppercase tracking-[0.12em]" style={{ color: "var(--text-h)" }}>Company</div>
+                <div className="mt-3 flex flex-col gap-2.5 text-sm leading-5 opacity-75">
+                  <a href="#about" className="transition-opacity hover:opacity-100">About</a>
+                  <a href="#blog" className="transition-opacity hover:opacity-100">Blog</a>
+                  <a href="#careers" className="transition-opacity hover:opacity-100">Careers</a>
+                  <a href="#contact" className="transition-opacity hover:opacity-100">Contact</a>
+                </div>
+              </div>
+
+              <div className="min-w-0">
+                <div className="text-[11px] font-black uppercase tracking-[0.12em]" style={{ color: "var(--text-h)" }}>Legal</div>
+                <div className="mt-3 flex flex-col gap-2.5 text-sm leading-5 opacity-75">
+                  <a href="#privacy" className="transition-opacity hover:opacity-100">Privacy Policy</a>
+                  <a href="#terms" className="transition-opacity hover:opacity-100">Terms of Service</a>
+                  <a href="#cookies" className="transition-opacity hover:opacity-100">Cookie Policy</a>
+                  <a href="#security" className="transition-opacity hover:opacity-100">Security</a>
+                </div>
+              </div>
+
+              <div className="min-w-0">
+                <div className="text-[11px] font-black uppercase tracking-[0.12em]" style={{ color: "var(--text-h)" }}>Connect</div>
+                <div className="mt-3 text-sm leading-5 opacity-75">Build better docs with us.</div>
+                <div className="mt-3 flex items-center gap-2">
+                  <a href="#" aria-label="GitHub" className="rounded-[12px] border border-white/10 p-2 transition-colors hover:bg-white/5">
+                    <FiGithub className="text-sm" />
+                  </a>
+                  <a href="#" aria-label="Twitter" className="rounded-[12px] border border-white/10 p-2 transition-colors hover:bg-white/5">
+                    <FiTwitter className="text-sm" />
+                  </a>
+                  <a href="#" aria-label="LinkedIn" className="rounded-[12px] border border-white/10 p-2 transition-colors hover:bg-white/5">
+                    <FiLinkedin className="text-sm" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
       </div>
     </div>
