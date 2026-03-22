@@ -1,4 +1,4 @@
-import { Orbit } from "lucide-react";
+import { GiDinosaurRex } from "react-icons/gi";
 
 interface MenuItem {
   title: string;
@@ -11,7 +11,6 @@ interface MenuItem {
 interface Footer2Props {
   logo?: {
     url: string;
-    src: string;
     alt: string;
     title: string;
   };
@@ -26,7 +25,6 @@ interface Footer2Props {
 
 const Footer2 = ({
   logo = {
-    src: "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=120&h=120&q=80",
     alt: "DocGen brand",
     title: "DocGen",
     url: "#",
@@ -87,14 +85,8 @@ const Footer2 = ({
                   href={logo.url}
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5"
                 >
-                  <Orbit className="h-5 w-5 text-cyan-300" />
+                  <GiDinosaurRex className="h-6 w-6 text-red-500" />
                 </a>
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  title={logo.title}
-                  className="h-10 w-10 rounded-full border border-white/15 object-cover"
-                />
                 <div>
                   <p className="text-lg font-semibold" style={{ color: "var(--text-h)" }}>
                     {logo.title}

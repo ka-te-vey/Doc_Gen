@@ -19,8 +19,8 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
             <div className="flex items-center gap-4">
               <GiDinosaurRex className="text-[24px] text-red-500" />
               <div>
-                <div className="docgen-brand text-[16px] tracking-[0.5em] uppercase font-black">DocGen</div>
-                <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">AI documentation workspace</div>
+                <div className="docgen-brand text-[20px] tracking-[0.5em] uppercase font-black">DocGen</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.35em] opacity-30">AI documentation workspace</div>
               </div>
             </div>
 
@@ -31,7 +31,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                     key={item.label}
                     type="button"
                     onClick={() => setActivePage(item.label.toLowerCase())}
-                    className="rounded-[14px] border border-transparent px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/10 hover:bg-white/5"
+                    className="rounded-[14px] border border-transparent px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/10 hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
                     style={{ color: 'var(--text-h)' }}
                   >
                     {item.label}
@@ -41,14 +41,14 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
 
               <button
                 type="button"
-                className="rounded-[14px] border border-white/10 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5"
+                className="rounded-[14px] border border-white/10 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
                 style={{ color: 'var(--text-h)' }}
               >
                 Login
               </button>
               <button
                 type="button"
-                className="rounded-[14px] border border-white/10 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5"
+                className="rounded-[14px] border border-white/10 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
                 style={{ color: 'var(--text-h)' }}
               >
                 Get Start 
@@ -73,7 +73,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
               <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
                 {activePage === "home" && (
                   <>
-                    <div className="inline-flex rounded-full border px-3 py-2 text-xs font-black uppercase tracking-[0.25em]" style={{ borderColor: 'var(--accent-border)', backgroundColor: 'var(--accent-bg)', color: 'var(--accent)' }}>
+                    <div className="inline-flex rounded-full border px-3 py-2 text-[16px] font-black uppercase tracking-[0.25em]" style={{ borderColor: 'var(--accent-border)', backgroundColor: 'var(--accent-bg)', color: 'var(--accent)' }}>
                       Code to docs in one pass
                     </div>
                     <h1 className="hero-headline mt-6 text-4xl md:text-6xl font-black tracking-[0.02em] leading-[0.98]">
@@ -94,35 +94,35 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                     <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                       <button
                         onClick={onStartGenerating}
-                        className="rounded-[20px] px-6 py-3 text-xs font-black uppercase tracking-[0.18em] transition-all rainbow-button"
+                        className="rounded-[20px] px-6 py-3 text-[16px] font-black uppercase tracking-[0.18em] transition-all rainbow-button"
                       >
                         Generate Now
                       </button>
                     </div>
 
-                    <div className="mt-10 grid w-full max-w-5xl gap-4 md:grid-cols-3">
+                    <div className="mt-10 grid w-full max-w-5xl gap-16 md:grid-cols-3">
                       <div
                         className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
                       >
-                        <div className="text-xs font-black uppercase tracking-[0.25em] text-blue-400/70">Input</div>
-                        <div className="mt-3 text-base font-semibold" style={{ color: 'var(--text-h)' }}>Paste source code</div>
+                        <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Input</div>
+                        <div className="mt-3 text-md font-semibold" style={{ color: 'var(--text-h)' }}>Paste source code</div>
                         <div className="mt-2 text-sm leading-6 opacity-75">Keep your implementation local in the browser while drafting.</div>
                       </div>
                       <div
                         className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
                       >
-                        <div className="text-xs font-black uppercase tracking-[0.25em] text-blue-400/70">Generate</div>
-                        <div className="mt-3 text-base font-semibold" style={{ color: 'var(--text-h)' }}>Choose output type</div>
+                        <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Generate</div>
+                        <div className="mt-3 text-md font-semibold" style={{ color: 'var(--text-h)' }}>Choose output type</div>
                         <div className="mt-2 text-sm leading-6 opacity-75">Switch between README, API docs, or code explanation flows.</div>
                       </div>
                       <div
                         className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
                       >
-                        <div className="text-xs font-black uppercase tracking-[0.25em] text-blue-400/70">Preview</div>
-                        <div className="mt-3 text-base font-semibold" style={{ color: 'var(--text-h)' }}>Review and export</div>
+                        <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Preview</div>
+                        <div className="mt-3 text-md   font-semibold" style={{ color: 'var(--text-h)' }}>Review and export</div>
                         <div className="mt-2 text-sm leading-6 opacity-75">Save locally, restore drafts, and export the final document as PDF.</div>
                       </div>
                     </div>
@@ -131,59 +131,53 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
 
                 {activePage === "pricing" && (
                   <div id="pricing" className="w-full max-w-5xl">
-                    <div className="rounded-[20px] border border-white/10 p-5 text-left md:p-7" style={{ backgroundColor: "var(--code-bg)" }}>
-                      <div className="text-xs font-black uppercase tracking-[0.24em] text-blue-400/70">Pricing</div>
-                      <h2 className="mt-2 text-2xl font-black md:text-3xl" style={{ color: "var(--text-h)" }}>
-                        Pick a plan and subscribe
-                      </h2>
-                      <div className="mt-6 grid gap-4 md:grid-cols-3">
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] opacity-70">Starter</div>
-                          <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$9<span className="text-sm font-semibold opacity-70">/mo</span></div>
-                          <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
-                            <li>1 project workspace</li>
-                            <li>README + API generation</li>
-                            <li>Email support</li>
-                          </ul>
-                          <button type="button" className="mt-4 w-full rounded-[14px] border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5">
-                            Subscribe
-                          </button>
-                        </div>
+                    <div className="grid gap-16 md:grid-cols-3">
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] opacity-70">Starter</div>
+                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$9<span className="text-sm font-semibold opacity-70">/mo</span></div>
+                        <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
+                          <li>1 project workspace</li>
+                          <li>README + API generation</li>
+                          <li>Email support</li>
+                        </ul>
+                        <button type="button" className="mt-4 w-full rounded-[14px] border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5">
+                          Subscribe
+                        </button>
+                      </div>
 
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--accent-border)", backgroundColor: "var(--accent-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400">Pro</div>
-                          <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$29<span className="text-sm font-semibold opacity-70">/mo</span></div>
-                          <ul className="mt-3 space-y-1 text-sm leading-6 opacity-80">
-                            <li>Unlimited projects</li>
-                            <li>Priority generation queue</li>
-                            <li>PDF export + version history</li>
-                          </ul>
-                          <button type="button" className="mt-4 w-full rounded-[14px] px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-all rainbow-button">
-                            Subscribe
-                          </button>
-                        </div>
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--accent-border)", backgroundColor: "var(--accent-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400">Pro</div>
+                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$29<span className="text-sm font-semibold opacity-70">/mo</span></div>
+                        <ul className="mt-3 space-y-1 text-sm leading-6 opacity-80">
+                          <li>Unlimited projects</li>
+                          <li>Priority generation queue</li>
+                          <li>PDF export + version history</li>
+                        </ul>
+                        <button type="button" className="mt-4 w-full rounded-[14px] px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-all rainbow-button">
+                          Your currently plan
+                        </button>
+                      </div>
 
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] opacity-70">Team</div>
-                          <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$79<span className="text-sm font-semibold opacity-70">/mo</span></div>
-                          <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
-                            <li>Up to 10 members</li>
-                            <li>Shared templates + roles</li>
-                            <li>Dedicated support</li>
-                          </ul>
-                          <button type="button" className="mt-4 w-full rounded-[14px] border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5">
-                            Subscribe
-                          </button>
-                        </div>
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] opacity-70">Team</div>
+                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$79<span className="text-sm font-semibold opacity-70">/mo</span></div>
+                        <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
+                          <li>Up to 10 members</li>
+                          <li>Shared templates + roles</li>
+                          <li>Dedicated support</li>
+                        </ul>
+                        <button type="button" className="mt-4 w-full rounded-[14px] border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5">
+                          Subscribe
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -191,55 +185,38 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
 
                 {activePage === "docs" && (
                   <div id="docs" className="w-full max-w-5xl">
-                    <div className="rounded-[20px] border border-white/10 p-5 md:p-7" style={{ backgroundColor: "var(--code-bg)" }}>
-                      <div className="text-xs font-black uppercase tracking-[0.24em] text-blue-400/70">Docs</div>
-                      <h2 className="mt-2 text-2xl font-black md:text-3xl text-left" style={{ color: "var(--text-h)" }}>
-                        Features and how to use DocGen
-                      </h2>
-
-                      <div className="mt-6 grid gap-4 md:grid-cols-3">
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">Smart Generation</div>
-                          <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Multiple document outputs</div>
-                          <p className="mt-2 text-sm leading-6 opacity-75">
-                            Generate README, API docs, and code explanations from the same code input in seconds.
-                          </p>
-                        </div>
-
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">Preview Workspace</div>
-                          <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Review before export</div>
-                          <p className="mt-2 text-sm leading-6 opacity-75">
-                            Validate headings, examples, and formatting in one place before sharing docs with your team.
-                          </p>
-                        </div>
-
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">Export Tools</div>
-                          <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Save and reuse</div>
-                          <p className="mt-2 text-sm leading-6 opacity-75">
-                            Export to PDF, keep draft history, and continue iteration without losing previous versions.
-                          </p>
-                        </div>
+                    <div className="grid gap-16 md:grid-cols-3">
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Smart Generation</div>
+                        <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Multiple document outputs</div>
+                        <p className="mt-2 text-sm leading-6 opacity-75">
+                          Generate README, API docs, and code explanations from the same code input in seconds.
+                        </p>
                       </div>
 
-                      <div className="mt-7 rounded-[20px] border border-white/10 p-5 text-left md:p-6" style={{ backgroundColor: "var(--preview-bg)" }}>
-                        <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">How To Use</div>
-                        <ol className="mt-3 space-y-3 text-sm leading-7 opacity-90 md:text-base">
-                          <li><span className="font-semibold" style={{ color: "var(--text-h)" }}>Step 1:</span> Paste your source code into the editor input area.</li>
-                          <li><span className="font-semibold" style={{ color: "var(--text-h)" }}>Step 2:</span> Select output type (README, API docs, or explanation).</li>
-                          <li><span className="font-semibold" style={{ color: "var(--text-h)" }}>Step 3:</span> Click Generate and review the result in preview.</li>
-                          <li><span className="font-semibold" style={{ color: "var(--text-h)" }}>Step 4:</span> Export to PDF or keep iterating from saved drafts.</li>
-                        </ol>
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Preview Workspace</div>
+                        <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Review before export</div>
+                        <p className="mt-2 text-sm leading-6 opacity-75">
+                          Validate headings, examples, and formatting in one place before sharing docs with your team.
+                        </p>
+                      </div>
+
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Export Tools</div>
+                        <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Save and reuse</div>
+                        <p className="mt-2 text-sm leading-6 opacity-75">
+                          Export to PDF, keep draft history, and continue iteration without losing previous versions.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -247,66 +224,32 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
 
                 {activePage === "contact" && (
                   <div id="contact" className="w-full max-w-5xl">
-                    <div className="rounded-[20px] border border-white/10 p-5 md:p-7" style={{ backgroundColor: "var(--code-bg)" }}>
-                      <div className="text-xs font-black uppercase tracking-[0.24em] text-blue-400/70">Contact</div>
-                      <h2 className="mt-2 text-2xl font-black md:text-3xl text-left" style={{ color: "var(--text-h)" }}>
-                        Get in touch with DocGen
-                      </h2>
-                      <p className="mt-3 text-left text-sm leading-6 opacity-80 md:text-base">
-                        Questions, feedback, or support requests. Reach out and our team will get back to you quickly.
-                      </p>
-
-                      <div className="mt-6 grid gap-4 md:grid-cols-3">
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">Email</div>
-                          <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>support@docgen.ai</div>
-                          <p className="mt-2 text-sm leading-6 opacity-75">Best for bug reports, billing questions, and account issues.</p>
-                        </div>
-
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">Sales</div>
-                          <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>sales@docgen.ai</div>
-                          <p className="mt-2 text-sm leading-6 opacity-75">Best for team plans, enterprise onboarding, and custom quotes.</p>
-                        </div>
-
-                        <div
-                          className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
-                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
-                        >
-                          <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">Live Chat</div>
-                          <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Mon-Fri, 9AM-6PM</div>
-                          <p className="mt-2 text-sm leading-6 opacity-75">Fast support for setup help and product usage guidance.</p>
-                        </div>
+                    <div className="grid gap-16 md:grid-cols-3">
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Email</div>
+                        <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>support@docgen.ai</div>
+                        <p className="mt-2 text-sm leading-6 opacity-75">Best for bug reports, billing questions, and account issues.</p>
                       </div>
 
-                      <div className="mt-7 rounded-[20px] border border-white/10 p-5 text-left md:p-6" style={{ backgroundColor: "var(--preview-bg)" }}>
-                        <div className="text-xs font-black uppercase tracking-[0.2em] text-blue-400/70">Send a Message</div>
-                        <div className="mt-3 grid gap-3 md:grid-cols-2">
-                          <input
-                            type="text"
-                            placeholder="Your name"
-                            className="rounded-[14px] border border-white/10 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-blue-400/50"
-                          />
-                          <input
-                            type="email"
-                            placeholder="Your email"
-                            className="rounded-[14px] border border-white/10 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-blue-400/50"
-                          />
-                          <textarea
-                            rows={4}
-                            placeholder="Your message"
-                            className="md:col-span-2 rounded-[14px] border border-white/10 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-blue-400/50"
-                          />
-                        </div>
-                        <button type="button" className="mt-4 rounded-[14px] px-5 py-3 text-xs font-black uppercase tracking-[0.18em] transition-all rainbow-button">
-                          Send Message
-                        </button>
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Sales</div>
+                        <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>sales@docgen.ai</div>
+                        <p className="mt-2 text-sm leading-6 opacity-75">Best for team plans, enterprise onboarding, and custom quotes.</p>
+                      </div>
+
+                      <div
+                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
+                      >
+                        <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Live Chat</div>
+                        <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Mon-Fri, 9AM-6PM</div>
+                        <p className="mt-2 text-sm leading-6 opacity-75">Fast support for setup help and product usage guidance.</p>
                       </div>
                     </div>
                   </div>

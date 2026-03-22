@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Flavors&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Wellfleet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -55,6 +56,10 @@ body {
   background: var(--page-bg);
   color: var(--text);
   min-height: 100vh;
+}
+
+p {
+  font-family: 'DM Sans', var(--sans);
 }
 
 #root {
