@@ -83,9 +83,9 @@ const Footer2 = ({
               <div className="flex items-center gap-3">
                 <a
                   href={logo.url}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5"
+                  className="inline-flex h-10 w-10 items-center justify-center"
                 >
-                  <GiDinosaurRex className="h-6 w-6 text-red-500" />
+                  <GiDinosaurRex className="h-9 w-9 text-red-500" />
                 </a>
                 <div>
                   <p className="text-lg font-semibold" style={{ color: "var(--text-h)" }}>

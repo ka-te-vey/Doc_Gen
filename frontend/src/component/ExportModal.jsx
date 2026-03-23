@@ -11,6 +11,8 @@ export default function ExportModal({ documentData, onClose }) {
   const [orientation, setOrientation] = useState('Portrait')
   const [page] = useState(1)
   const [isExporting, setIsExporting] = useState(false)
+  const [isEditingTitle, setIsEditingTitle] = useState(false)
+  const [exportTitle, setExportTitle] = useState(documentData.title || 'Untitled Document')
   const previewRef = useRef(null)
 
   const handleDownload = async () => {
@@ -19,7 +21,7 @@ export default function ExportModal({ documentData, onClose }) {
 
     try {
       const content = previewRef.current.innerHTML
-      const title = documentData.title || 'Document'
+      const title = exportTitle.trim() || 'Document'
       
       // Create a hidden iframe
       const iframe = document.createElement('iframe')
@@ -101,10 +103,39 @@ export default function ExportModal({ documentData, onClose }) {
         </div>
 
         <div className="p-4 space-y-4">
+          <div className="rounded-[20px] border p-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-xs uppercase tracking-[0.12em] opacity-80" style={{ color: 'var(--text)' }}>
+                Export title
+              </div>
+              <button
+                onClick={() => setIsEditingTitle((prev) => !prev)}
+                className="rounded-[20px] border px-3 py-1 text-xs transition"
+                style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
+              >
+                {isEditingTitle ? 'Done' : 'Edit Title'}
+              </button>
+            </div>
+            {isEditingTitle ? (
+              <input
+                type="text"
+                value={exportTitle}
+                onChange={(e) => setExportTitle(e.target.value)}
+                className="mt-2 w-full rounded-[20px] border p-2 text-sm"
+                style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}
+                placeholder="Enter PDF title"
+              />
+            ) : (
+              <div className="mt-2 text-sm font-semibold" style={{ color: 'var(--text-h)' }}>
+                {exportTitle || 'Untitled Document'}
+              </div>
+            )}
+          </div>
+
           <div ref={previewRef} className="rounded-[20px] border p-4 max-h-[60vh] overflow-y-auto custom-scrollbar" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text)' }}>
             <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] border-b border-black/10 dark:border-white/10 pb-3 mb-4" style={{ color: 'var(--text)' }}>
               <div>
-                <div className="font-bold text-xs" style={{ color: 'var(--text-h)' }}>{documentData.title || 'Untitled Document'}</div>
+                <div className="font-bold text-xs" style={{ color: 'var(--text-h)' }}>{exportTitle || 'Untitled Document'}</div>
                 <div className="opacity-70">{documentData.documentType || 'README'}</div>
               </div>
               <div className="text-right">

@@ -11,61 +11,132 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
     { label: "Docs", href: "#docs" },
     { label: "Contact", href: "#contact" }
   ]
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
   return (
     <div className="w-full max-w-[1400px] mx-auto relative z-10">
       <div className="rounded-[20px] rgb-animate-border relative overflow-visible" style={{ '--panel-inner-bg': 'var(--preview-bg)', color: 'var(--text)' }}>
         <div className="panel-inner rounded-[20px] min-h-[78vh] flex flex-col">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 px-6 py-5">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 px-6 py-5 relative">
             <div className="flex items-center gap-4">
-              <GiDinosaurRex className="text-[24px] text-red-500" />
+              <GiDinosaurRex className="text-[24px] w-9 h-9 text-red-500" />
               <div>
                 <div className="docgen-brand text-[20px] tracking-[0.5em] uppercase font-black">DocGen</div>
                 <div className="text-[10px] font-bold uppercase tracking-[0.35em] opacity-30">AI documentation workspace</div>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
-              {navItems.map((item) => (
-                item.label === "Home" || item.label === "Pricing" || item.label === "Docs" || item.label === "Contact" ? (
+            <div className="flex flex-1 items-center justify-center gap-5 sm:gap-7 relative">
+              <div className="hidden lg:flex items-center justify-center gap-5 sm:gap-7">
+                {navItems.map((item) => (
                   <button
                     key={item.label}
                     type="button"
-                    onClick={() => setActivePage(item.label.toLowerCase())}
-                    className="rounded-[14px] border border-transparent px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/10 hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
+                    onClick={() => {
+                      setActivePage(item.label.toLowerCase())
+                      setIsMobileNavOpen(false)
+                    }}
+                    className="rounded-[14px] px-4 py-3 text-[13px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/10 hover:bg-white/20 sm:px-3 sm:py-2 sm:text-[10px]"
                     style={{ color: 'var(--text-h)' }}
                   >
                     {item.label}
                   </button>
-                ) : null
-              ))}
+                ))}
+                <button
+                  onClick={toggleTheme}
+                  className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden"
+                  style={{ '--panel-inner-bg': 'var(--code-bg)' }}
+                  title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                >
+                  <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
+                    {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
+                  </span>
+                </button>
+              </div>
+              <div className="lg:hidden flex flex-col items-center gap-3 absolute right-0 top-0">
+                <button
+                  onClick={() => setIsMobileNavOpen((prev) => !prev)}
+                  className="rounded-[14px] border border-white/20 px-5 py-4 text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/5"
+                  style={{ color: 'var(--text-h)' }}
+                  aria-label="Open navigation"
+                >
+                  ☰
+                </button>
+                <button
+                  onClick={toggleTheme}
+                  className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden"
+                  style={{ '--panel-inner-bg': 'var(--code-bg)' }}
+                  title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                >
+                  <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
+                    {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
+                  </span>
+                </button>
+              </div>
+              <div
+                className={`absolute right-0 top-full mt-3 z-50 w-[220px] max-w-[70vw] rounded-[20px] border border-white/10 bg-white/5 px-4 py-4 backdrop-blur-xl shadow-[0_15px_40px_rgba(2,6,23,0.45)] transition-transform duration-300 ease-out ${
+                  isMobileNavOpen
+                    ? 'translate-x-0 opacity-100 pointer-events-auto'
+                    : 'translate-x-full opacity-0 pointer-events-none'
+                }`}
+              >
+                <div className="flex flex-col gap-2">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.label}
+                      type="button"
+                      onClick={() => {
+                        setActivePage(item.label.toLowerCase())
+                        setIsMobileNavOpen(false)
+                      }}
+                      className="w-full rounded-[14px] border border-white/20 px-3 py-2 text-left text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/20"
+                      style={{ color: 'var(--text-h)' }}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4">
+                  <button
+                    type="button"
+                    className="w-full rounded-[14px] border border-white/20 px-3 py-2 text-left text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/20"
+                    style={{ color: 'var(--text-h)' }}
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    className="w-full rounded-[14px] border border-blue-500 px-3 py-2 text-left text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-blue-400 hover:bg-white/10"
+                    style={{ color: 'var(--text-h)' }}
+                  >
+                    Get Started
+                  </button>
+                </div>
+              </div>
+            </div>
 
+            <div className="self-start flex flex-col items-end gap-2 justify-start">
               <button
                 type="button"
-                className="rounded-[14px] border border-white/10 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
+                className="hidden lg:inline-flex rounded-[14px] border border-white/40 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
                 style={{ color: 'var(--text-h)' }}
               >
                 Login
               </button>
               <button
                 type="button"
-                className="rounded-[14px] border border-white/10 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
+                className="hidden lg:inline-flex rounded-[14px] border border-blue-500 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
                 style={{ color: 'var(--text-h)' }}
               >
-                Get Start 
-              </button>
-
-              <button
-                onClick={toggleTheme}
-                className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden"
-                style={{ '--panel-inner-bg': 'var(--code-bg)' }}
-                title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-              >
-                <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
-                  {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
-                </span>
+                Get Started
               </button>
             </div>
           </div>
+
+          <div
+            className={`fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${isMobileNavOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+            onClick={() => setIsMobileNavOpen(false)}
+            aria-hidden={!isMobileNavOpen}
+          />
 
           <div className="flex-1 p-4">
             <section className="rounded-[20px] border border-white/5 bg-transparent p-8 md:p-12 relative overflow-hidden min-h-full flex items-center justify-center">
@@ -108,6 +179,9 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Input</div>
                         <div className="mt-3 text-md font-semibold" style={{ color: 'var(--text-h)' }}>Paste source code</div>
                         <div className="mt-2 text-sm leading-6 opacity-75">Keep your implementation local in the browser while drafting.</div>
+                        <p className="text-sm leading-6 opacity-70">
+                          Inputs are stored client-side and auto-save as you type, so you can reopen the workspace and pick back up exactly where you left off.
+                        </p>
                       </div>
                       <div
                         className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
@@ -116,6 +190,9 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Generate</div>
                         <div className="mt-3 text-md font-semibold" style={{ color: 'var(--text-h)' }}>Choose output type</div>
                         <div className="mt-2 text-sm leading-6 opacity-75">Switch between README, API docs, or code explanation flows.</div>
+                        <p className="text-sm leading-6 opacity-70">
+                          Each flow injects tailored prompts, headings, and emphasis blocks so the output matches the conventions of the selected document type.
+                        </p>
                       </div>
                       <div
                         className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
@@ -124,6 +201,9 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Preview</div>
                         <div className="mt-3 text-md   font-semibold" style={{ color: 'var(--text-h)' }}>Review and export</div>
                         <div className="mt-2 text-sm leading-6 opacity-75">Save locally, restore drafts, and export the final document as PDF.</div>
+                        <p className="text-sm leading-6 opacity-70">
+                          The preview is the single source of truth for exports and version history: any formatting or correction you make here feeds directly into the PDF you download.
+                        </p>
                       </div>
                     </div>
                   </>
@@ -137,12 +217,12 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] opacity-70">Starter</div>
-                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$9<span className="text-sm font-semibold opacity-70">/mo</span></div>
-                        <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
-                          <li>1 project workspace</li>
-                          <li>README + API generation</li>
-                          <li>Email support</li>
-                        </ul>
+                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$59<span className="text-sm font-semibold opacity-70">/mo</span></div>
+                          <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
+                            <li>Up to 2 members</li>
+                            <li>100 tokens/month</li>
+                            <li>README + API generation</li>
+                          </ul>
                         <button type="button" className="mt-4 w-full rounded-[14px] border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5">
                           Subscribe
                         </button>
@@ -153,14 +233,15 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         style={{ borderColor: "var(--accent-border)", backgroundColor: "var(--accent-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400">Pro</div>
-                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$29<span className="text-sm font-semibold opacity-70">/mo</span></div>
-                        <ul className="mt-3 space-y-1 text-sm leading-6 opacity-80">
-                          <li>Unlimited projects</li>
-                          <li>Priority generation queue</li>
-                          <li>PDF export + version history</li>
-                        </ul>
+                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$89<span className="text-sm font-semibold opacity-70">/mo</span></div>
+                          <ul className="mt-3 space-y-1 text-sm leading-6 opacity-80">
+                            <li>1 project workspace</li>
+                            <li>Up to 5 members</li>
+                            <li>300 tokens/month</li>
+                            <li>PDF export + version history</li>
+                          </ul>
                         <button type="button" className="mt-4 w-full rounded-[14px] px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-all rainbow-button">
-                          Your currently plan
+                          Your current plan
                         </button>
                       </div>
 
@@ -169,12 +250,13 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] opacity-70">Team</div>
-                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$79<span className="text-sm font-semibold opacity-70">/mo</span></div>
-                        <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
-                          <li>Up to 10 members</li>
-                          <li>Shared templates + roles</li>
-                          <li>Dedicated support</li>
-                        </ul>
+                        <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$279<span className="text-sm font-semibold opacity-70">/mo</span></div>
+                          <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
+                            <li>3 project workspaces</li>
+                            <li>Up to 20 members</li>
+                            <li>1,000 tokens/month</li>
+                            <li>Shared templates + roles</li>
+                          </ul>
                         <button type="button" className="mt-4 w-full rounded-[14px] border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5">
                           Subscribe
                         </button>
@@ -194,6 +276,9 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Multiple document outputs</div>
                         <p className="mt-2 text-sm leading-6 opacity-75">
                           Generate README, API docs, and code explanations from the same code input in seconds.
+                        </p>
+                        <p className="text-sm leading-6 opacity-70">
+                          The workspace stays fully client-side: drafts save locally, drafts and exports share a single preview flow, and you can drop into version history without re-running your prompt. Every output is backed by a live markdown preview plus syntax-highlighted snippets that stay readable when you export to PDF.
                         </p>
                       </div>
 
@@ -250,6 +335,34 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Live Chat</div>
                         <div className="mt-2 text-base font-semibold" style={{ color: "var(--text-h)" }}>Mon-Fri, 9AM-6PM</div>
                         <p className="mt-2 text-sm leading-6 opacity-75">Fast support for setup help and product usage guidance.</p>
+                      </div>
+                    </div>
+                    <div className="mt-10 rounded-[20px] border p-8 md:p-10" style={{ borderColor: "var(--border)", backgroundColor: "var(--code-bg)" }}>
+                      <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Send a message</div>
+                      <p className="mt-2 text-sm leading-6 opacity-70">
+                        Tell us what you need—feedback, a bug report, or just a hello—and we’ll reply within one business day.
+                      </p>
+                      <div className="mt-4 space-y-3">
+                        <input
+                          type="text"
+                          placeholder="Your email or name"
+                          className="w-full rounded-[14px] border px-3 py-2 text-sm uppercase tracking-[0.15em]"
+                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)", color: "var(--text)" }}
+                        />
+                        <textarea
+                          rows={4}
+                          placeholder="Write your message..."
+                          className="w-full rounded-[14px] border px-3 py-2 text-sm uppercase tracking-[0.15em] resize-none"
+                          style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)", color: "var(--text)" }}
+                        ></textarea>
+                      </div>
+                      <div className="mt-4 flex justify-end">
+                        <button
+                          type="button"
+                          className="rounded-[14px] border border-blue-500 px-4 py-2 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-blue-500 hover:text-white"
+                        >
+                          Submit message
+                        </button>
                       </div>
                     </div>
                   </div>

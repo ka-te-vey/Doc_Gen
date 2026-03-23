@@ -26,7 +26,7 @@ export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewCha
       {!isOpen && (
         <button
           onClick={onToggle}
-          className="fixed left-4 top-4 z-[70] h-11 w-11 rounded-[16px] border text-xl font-black leading-none transition-all hover:brightness-110"
+          className="fixed left-6 top-6 sm:top-4 z-[70] h-11 w-11 rounded-[16px] border text-xl font-black leading-none transition-all hover:brightness-110"
           style={{ borderColor: "var(--border)", backgroundColor: "var(--code-bg)", color: "var(--text-h)" }}
           title="Open history"
         >
@@ -53,13 +53,10 @@ export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewCha
                 <div className="text-[12px] font-black uppercase tracking-[0.25em]" style={{ color: "var(--text-h)" }}>
                   Chat History
                 </div>
-                <div className="mt-1 text-[10px] uppercase tracking-[0.2em] opacity-50">
-                  Stored locally
-                </div>
               </div>
               <button
                 onClick={onClose}
-                className="rounded-[12px] border px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-all hover:bg-white/5"
+                className="rounded-[20px] border px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-all hover:bg-blue/5"
                 style={{ borderColor: "var(--border)", color: "var(--text)" }}
                 title="Close history"
               >
