@@ -9,22 +9,6 @@ import "./App.css"
 const CHAT_HISTORY_STORAGE_KEY = "docgen_chat_history"
 const THEME_STORAGE_KEY = "theme"
 
-function readStoredValue(key, fallback) {
-  if (typeof window === "undefined") return fallback
-
-  try {
-    const storedValue = localStorage.getItem(key)
-    if (!storedValue) return fallback
-
-    const parsedValue = JSON.parse(storedValue)
-    return parsedValue && typeof parsedValue === "object"
-      ? { ...fallback, ...parsedValue }
-      : fallback
-  } catch {
-    return fallback
-  }
-}
-
 function writeStoredValue(key, value) {
   if (typeof window === "undefined") return false
 
@@ -204,7 +188,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex items-start justify-start pt-16 pb-10 px-4 relative overflow-hidden sm:items-center sm:justify-center sm:py-10" style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
+    <div className="min-h-screen flex items-start justify-start pt-16 pb-10 px-4 relative overflow-hidden sm:items-center sm:justify-center sm:py-10" style={{ backgroundColor: 'var(--bg)', color: 'var(--text-h)' }}>
       {/* Background Gradients for depth (No animations for performance) */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ background: 'var(--page-bg)' }}></div>
 
@@ -221,7 +205,7 @@ export default function App() {
       />
       
       {isGeneratorView ? (
-        <div className="w-full max-w-[1024px] mx-auto flex flex-col lg:flex-row gap-4 rounded-[20px] p-4 relative z-10 lg:h-[85vh]">
+        <div className="w-full max-w-[1024px] mx-auto flex flex-col lg:flex-row gap-4 rounded-[10px] p-4 relative z-10 lg:h-[85vh]">
           <Sidebar 
             documentData={sidebarData}
             onDocumentChange={handleDocumentChange}

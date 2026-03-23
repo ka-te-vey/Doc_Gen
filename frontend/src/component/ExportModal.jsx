@@ -1,6 +1,4 @@
 import { useState, useRef } from 'react'
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
@@ -105,12 +103,12 @@ export default function ExportModal({ documentData, onClose }) {
         <div className="p-4 space-y-4">
           <div className="rounded-[20px] border p-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
             <div className="flex items-center justify-between gap-3">
-              <div className="text-xs uppercase tracking-[0.12em] opacity-80" style={{ color: 'var(--text)' }}>
+              <div className="text-md uppercase tracking-[0.12em] opacity-80" style={{ color: 'var(--text)' }}>
                 Export title
               </div>
               <button
                 onClick={() => setIsEditingTitle((prev) => !prev)}
-                className="rounded-[20px] border px-3 py-1 text-xs transition"
+                className="rounded-[20px] border px-3 py-1 text-md transition"
                 style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
               >
                 {isEditingTitle ? 'Done' : 'Edit Title'}
@@ -121,19 +119,19 @@ export default function ExportModal({ documentData, onClose }) {
                 type="text"
                 value={exportTitle}
                 onChange={(e) => setExportTitle(e.target.value)}
-                className="mt-2 w-full rounded-[20px] border p-2 text-sm"
+                className="mt-2 w-full rounded-[20px] border p-2 text-md"
                 style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}
                 placeholder="Enter PDF title"
               />
             ) : (
-              <div className="mt-2 text-sm font-semibold" style={{ color: 'var(--text-h)' }}>
+              <div className="mt-2 text-md font-semibold" style={{ color: 'var(--text-h)' }}>
                 {exportTitle || 'Untitled Document'}
               </div>
             )}
           </div>
 
-          <div ref={previewRef} className="rounded-[20px] border p-4 max-h-[60vh] overflow-y-auto custom-scrollbar" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text)' }}>
-            <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] border-b border-black/10 dark:border-white/10 pb-3 mb-4" style={{ color: 'var(--text)' }}>
+          <div ref={previewRef} className="rounded-[20px] border p-4 max-h-[60vh] overflow-y-auto custom-scrollbar" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text-h)' }}>
+            <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] border-b border-black/10 dark:border-white/10 pb-3 mb-4" style={{ color: 'var(--text-h)' }}>
               <div>
                 <div className="font-bold text-xs" style={{ color: 'var(--text-h)' }}>{exportTitle || 'Untitled Document'}</div>
                 <div className="opacity-70">{documentData.documentType || 'README'}</div>
@@ -145,11 +143,11 @@ export default function ExportModal({ documentData, onClose }) {
             </div>
             
             <div className="space-y-4">
-              <div className="prose prose-sm max-w-none dark:prose-invert prose-headings:font-semibold" style={{ color: 'var(--text)' }}>
+              <div className="prose prose-sm max-w-none dark:prose-white prose-headings:font-semibold" style={{ color: 'var(--text-h)' }}>
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    code({node, inline, className, children, ...props}) {
+                    code({node: _node, inline, className, children, ...props}) {
                       const match = /language-(\w+)/.exec(className || '')
                       return !inline && match ? (
                         <SyntaxHighlighter
@@ -162,16 +160,16 @@ export default function ExportModal({ documentData, onClose }) {
                           {String(children).replace(/\n$/, '')}
                         </SyntaxHighlighter>
                       ) : (
-                        <code className={`${className} bg-black/5 dark:bg-white/5 rounded-[20px] px-1.5 py-0.5 font-mono text-[11px]`} {...props}>
+                        <code className={`${className} bg-black/5 dark:bg-blue-300 rounded-[20px] px-1.5 py-0.5 font-mono text-[11px]`} {...props}>
                           {children}
                         </code>
                       )
                     },
                     table({children}) {
-                      return <div className="overflow-x-auto my-4 rounded-[20px] border border-black/10 dark:border-white/10"><table className="min-w-full divide-y divide-black/10 dark:divide-white/10">{children}</table></div>
+                      return <div className="overflow-x-auto my-4 rounded-[20px] border border-black/10 dark:border-white/10"><table className="min-w-full divide-y divide-black dark:divide-white">{children}</table></div>
                     },
                     th({children}) {
-                      return <th className="px-3 py-2 bg-black/5 dark:bg-white/5 text-left text-[10px] font-semibold uppercase tracking-wider">{children}</th>
+                      return <th className="px-3 py-2 bg-gray-500 dark:bg-white/5 text-left text-[10px] font-semibold uppercase tracking-wider">{children}</th>
                     },
                     td({children}) {
                       return <td className="px-3 py-2 text-[10px] border-t border-black/10 dark:border-white/10">{children}</td>
@@ -214,8 +212,8 @@ export default function ExportModal({ documentData, onClose }) {
           <div className="flex justify-end gap-2 border-t border-white/10 pt-3">
             <button
               onClick={onClose}
-              className="rounded-[20px] border px-4 py-2 text-sm"
-              style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
+              className="rounded-[20px] border px-4 py-2 text-md"
+              style={{ borderColor: 'var(--border)', color: 'var(--text-h)' }}
             >
               Cancel
             </button>

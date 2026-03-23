@@ -21,7 +21,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
               <GiDinosaurRex className="text-[24px] w-9 h-9 text-red-500" />
               <div>
                 <div className="docgen-brand text-[20px] tracking-[0.5em] uppercase font-black">DocGen</div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.35em] opacity-30">AI documentation workspace</div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.35em]">AI documentation workspace</div>
               </div>
             </div>
 
@@ -65,11 +65,11 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
               <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-3">
                 <button
                   onClick={() => setIsMobileNavOpen((prev) => !prev)}
-                  className={`lg:hidden rounded-[14px] border border-white/20 px-4 py-3 text-[18px] font-black transition-colors hover:border-white/40 hover:bg-white/5 items-center justify-center relative z-[60] ${isMobileNavOpen ? 'hidden' : 'flex'}`}
+                  className="lg:hidden rounded-[14px] border border-white/20 px-4 py-3 text-[18px] font-black transition-all hover:border-white/40 hover:bg-white/5 flex items-center justify-center relative z-[70]"
                   style={{ color: 'var(--text-h)' }}
-                  aria-label="Open navigation"
+                  aria-label={isMobileNavOpen ? "Close navigation" : "Open navigation"}
                 >
-                  ☰
+                  {isMobileNavOpen ? <GiCancel className="text-[24px] text-red-400" /> : "☰"}
                 </button>
 
                 <button
@@ -87,22 +87,12 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
 
             {/* Mobile Nav Menu Overlay */}
             <div
-              className={`lg:hidden absolute left-0 right-0 top-0 z-50 w-full rounded-[20px] border border-white/10 bg-white/5 px-6 py-8 backdrop-blur-3xl shadow-[0_15px_40px_rgba(2,6,23,0.45)] transition-transform duration-300 ease-out ${
+              className={`lg:hidden absolute left-0 right-0 top-0 z-50 w-full rounded-[20px] border border-white/10 bg-white/10 px-6 py-8 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-[transform,opacity] ${
                 isMobileNavOpen
                   ? 'translate-y-0 opacity-100 pointer-events-auto'
                   : '-translate-y-full opacity-0 pointer-events-none'
               }`}
             >
-              <div className="flex justify-start mb-10">
-                <button
-                  onClick={() => setIsMobileNavOpen(false)}
-                  className="rounded-[14px] border border-white/20 p-3 text-red-400 transition-colors hover:border-red-400/40 hover:bg-white/5"
-                  aria-label="Close navigation"
-                >
-                  <GiCancel className="text-[28px]" />
-                </button>
-              </div>
-
               <div className="flex flex-col gap-4 mt-12">
                 {navItems.map((item) => (
                   <button

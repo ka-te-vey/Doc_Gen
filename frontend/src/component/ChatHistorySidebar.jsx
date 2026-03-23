@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { RiDeleteBin6Line } from "react-icons/ri"
+import { GiCancel } from "react-icons/gi"
 
 function formatHistoryTime(timestamp) {
   if (!timestamp) return "Unknown time"
@@ -23,51 +24,50 @@ export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewCha
 
   return (
     <>
-      {!isOpen && (
-        <button
-          onClick={onToggle}
-          className="fixed left-6 top-6 sm:top-4 z-[70] h-11 w-11 rounded-[16px] border text-xl font-black leading-none transition-all hover:brightness-110"
-          style={{ borderColor: "var(--border)", backgroundColor: "var(--code-bg)", color: "var(--text-h)" }}
-          title="Open history"
-        >
-          {"\u2630"}
-        </button>
-      )}
+      <button
+        onClick={onToggle}
+        className={`fixed left-6 top-6 sm:top-4 z-[70] h-11 w-11 rounded-[16px] border text-xl font-black leading-none transition-all duration-300 hover:brightness-110 flex items-center justify-center ${isOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+        style={{ 
+          borderColor: "var(--border)", 
+          backgroundColor: "var(--code-bg)",
+          color: "var(--text-h)"
+        }}
+        title="Open history"
+      >
+        {"\u2630"}
+      </button>
 
-      {isOpen && (
-        <button
-          onClick={onClose}
-          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
-          aria-label="Close history overlay"
-        />
-      )}
+      <div
+        className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        onClick={onClose}
+        aria-hidden={!isOpen}
+      />
 
       <aside
-        className={`fixed left-0 top-0 z-[60] h-full w-[320px] max-w-[85vw] border-r transition-transform duration-200 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed left-0 top-0 z-[60] h-full w-[320px] max-w-[85vw] border-r transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
         style={{ borderColor: "var(--border)", backgroundColor: "var(--sidebar-bg)", color: "var(--text)" }}
       >
         <div className="flex h-full flex-col">
           <div className="border-b px-5 py-4" style={{ borderColor: "var(--border)" }}>
             <div className="flex items-center justify-between gap-3">
               <div>
-                <div className="text-[12px] font-black uppercase tracking-[0.25em]" style={{ color: "var(--text-h)" }}>
+                <div className="text-[14px] font-black uppercase tracking-[0.25em]" style={{ color: "var(--text-h)" }}>
                   Chat History
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="rounded-[20px] border px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] transition-all hover:bg-blue/5"
-                style={{ borderColor: "var(--border)", color: "var(--text)" }}
+                className="rounded-[14px] border border-white/20 p-2 text-red-400 transition-all hover:border-red-400/40 hover:bg-white/5"
                 title="Close history"
               >
-                Cancel
+                <GiCancel className="text-[20px]" />
               </button>
             </div>
           </div>
 
           <div className="flex-1 overflow-y-auto p-3 custom-scrollbar">
             {items.length === 0 ? (
-              <div className="rounded-[16px] border p-4 text-xs opacity-70" style={{ borderColor: "var(--border)" }}>
+              <div className="rounded-[16px] border p-4 text-[14px] opacity-70" style={{ borderColor: "var(--border)" }}>
                 No history yet. Generate documentation to create entries.
               </div>
             ) : (
@@ -142,7 +142,7 @@ export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewCha
           <div className="border-t p-3" style={{ borderColor: "var(--border)" }}>
             <button
               onClick={onNewChat}
-              className="mb-2 w-full rounded-[14px] border px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:bg-blue-500/10"
+              className="mb-2 w-full rounded-[14px] border px-4 py-2 text-[13px] font-black uppercase tracking-[0.2em] transition-all hover:bg-blue-500/10"
               style={{ borderColor: "var(--accent-border)", color: "var(--accent)" }}
             >
               New Chat
@@ -150,7 +150,7 @@ export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewCha
             <button
               onClick={onClear}
               disabled={items.length === 0}
-              className="w-full rounded-[14px] border px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] transition-all disabled:cursor-not-allowed disabled:opacity-40 hover:bg-white/5"
+              className="w-full rounded-[14px] border px-4 py-2 text-[13px] font-black uppercase tracking-[0.2em] transition-all disabled:cursor-not-allowed disabled:opacity-40 hover:bg-white/5"
               style={{ borderColor: "var(--border)", color: "var(--text)" }}
             >
               Clear History

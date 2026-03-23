@@ -4,26 +4,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Flavors&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Wellfleet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 :root {
   /* Light mode defaults */
-  --text: #0f172a;
-  --text-h: #020617;
+  --text: #000000;
+  --text-h: #000000;
   --bg: #fdfdfd;
-  --border: rgba(15, 23, 42, 0.12);
+  --border: rgba(0, 0, 0, 0.12);
   --code-bg: #ffffff;
   --accent: #0284c7;
   --accent-bg: rgba(2, 132, 199, 0.06);
   --accent-border: rgba(2, 132, 199, 0.2);
   --sidebar-bg: #f8fafc;
   --preview-bg: #fdfdfd;
-  --shadow: rgba(15, 23, 42, 0.08) 0 20px 40px -20px;
+  --shadow: rgba(0, 0, 0, 0.08) 0 20px 40px -20px;
   --page-bg: #f1f5f9;
 
-  --sans: 'Inter', system-ui, sans-serif;
+  --sans: 'Roboto', 'Inter', system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
 
   font: 16px/1.6 var(--sans);
@@ -59,7 +60,7 @@ body {
 }
 
 p {
-  font-family: 'DM Sans', var(--sans);
+  font-family: 'Roboto', var(--sans);
 }
 
 #root {
@@ -70,6 +71,34 @@ p {
 }
 
 /* --- Cross-browser RGB flowing border (no outer glow) --- */
+
+/* Prose (Typography) Color Overrides */
+.prose {
+  font-family: 'Roboto', var(--sans);
+  --tw-prose-body: var(--text);
+  --tw-prose-headings: var(--text-h);
+  --tw-prose-lead: var(--text);
+  --tw-prose-bold: var(--text-h);
+  --tw-prose-counters: var(--text);
+  --tw-prose-bullets: var(--text);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--text-h);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--text);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
+}
+
+.dark .prose {
+  --tw-prose-body: #ffffff;
+  --tw-prose-headings: #ffffff;
+  --tw-prose-lead: #ffffff;
+  --tw-prose-bold: #ffffff;
+  --tw-prose-counters: #ffffff;
+  --tw-prose-bullets: #ffffff;
+  --tw-prose-quotes: #ffffff;
+  --tw-prose-captions: #ffffff;
+}
 
 @keyframes rgb-flow {
   0% { background-position: 50% 0%; }

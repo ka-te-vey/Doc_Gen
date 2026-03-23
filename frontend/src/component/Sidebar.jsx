@@ -14,8 +14,8 @@ export default function Sidebar({
       <div className="panel-inner h-full flex flex-col">
         <div className="px-5 py-6 border-b border-white/5 flex items-center justify-between relative z-10">
           <div className="group cursor-default">
-            <div className="docgen-brand text-[16px] tracking-[0.5em] uppercase font-black" style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>DocGen</div>
-            <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">v1.0</div>
+            <div className="docgen-brand text-[16px] tracking-[0.5em] uppercase font-black">DocGen</div>
+            <div className="text-[10px] uppercase tracking-[0.35em] text-white" style={{ color: 'var(--text-h)'}}>v1.0</div>
           </div>
           <button 
             onClick={toggleTheme} 
@@ -48,7 +48,7 @@ export default function Sidebar({
                 <option>API DOCUMENT</option>
                 <option>CODE EXPLANATION</option>
               </select>
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs opacity-30">▾</span>
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-3xl text-white" style={{ color: 'var(--text-h)'}}>▾</span>
             </div>
           </div>
 
