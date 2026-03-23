@@ -34,3 +34,6 @@ node_modules.zip
 package-lock.json.bak
 .temp
 /tmp
+
+# Local reference file (should never be committed)
+PAGE_PROMPTS.md

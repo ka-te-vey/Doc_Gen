@@ -78,8 +78,8 @@ const Footer2 = ({
         style={{ backgroundColor: "var(--code-bg)" }}
       >
         <footer>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-6">
-            <div className="col-span-1 mb-4 sm:col-span-2 lg:mb-0">
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-6">
+              <div className="col-span-2 mb-4 sm:col-span-2 lg:col-span-1 lg:mb-0">
               <div className="flex items-center gap-3">
                 <a
                   href={logo.url}
