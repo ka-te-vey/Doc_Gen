@@ -88,9 +88,9 @@ export default function ExportModal({ documentData, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 bg-blur">
-      <div id="export-modal" className="w-full max-w-3xl rounded-[20px] border shadow-2xl overflow-hidden relative" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
-        <div className="border-b p-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 lg:p-6 bg-blur">
+      <div id="export-modal" className="w-full max-w-2xl rounded-[20px] border shadow-2xl overflow-hidden relative" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
+        <div className="border-b p-3 lg:p-4" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
           <div className="flex items-center justify-between">
             <div>
               <div className="text-lg font-semibold">Export as PDF</div>
@@ -100,8 +100,8 @@ export default function ExportModal({ documentData, onClose }) {
           </div>
         </div>
 
-        <div className="p-4 space-y-4">
-          <div className="rounded-[20px] border p-3" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
+        <div className="p-4 lg:p-6 space-y-4 lg:space-y-5">
+          <div className="rounded-[20px] border p-3 lg:p-4" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}>
             <div className="flex items-center justify-between gap-3">
               <div className="text-md uppercase tracking-[0.12em] opacity-80" style={{ color: 'var(--text)' }}>
                 Export title
@@ -130,7 +130,7 @@ export default function ExportModal({ documentData, onClose }) {
             )}
           </div>
 
-          <div ref={previewRef} className="rounded-[20px] border p-4 max-h-[60vh] overflow-y-auto custom-scrollbar" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text-h)' }}>
+          <div ref={previewRef} className="rounded-[20px] border p-4 lg:p-5 max-h-[50vh] overflow-y-auto custom-scrollbar" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text-h)' }}>
             <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.2em] border-b border-black/10 dark:border-white/10 pb-3 mb-4" style={{ color: 'var(--text-h)' }}>
               <div>
                 <div className="font-bold text-xs" style={{ color: 'var(--text-h)' }}>{exportTitle || 'Untitled Document'}</div>
@@ -147,7 +147,7 @@ export default function ExportModal({ documentData, onClose }) {
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    code({node: _node, inline, className, children, ...props}) {
+                    code({ inline, className, children, ...props}) {
                       const match = /language-(\w+)/.exec(className || '')
                       return !inline && match ? (
                         <SyntaxHighlighter
