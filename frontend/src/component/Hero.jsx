@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { GiDinosaurRex } from "react-icons/gi"
+import { GiDinosaurRex, GiCancel } from "react-icons/gi"
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi"
 import { Footer2 } from "../UI/shadcnblocks-com-footer2"
 
@@ -16,7 +16,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
     <div className="w-full max-w-[1400px] mx-auto relative z-10">
       <div className="rounded-[20px] rgb-animate-border relative overflow-visible" style={{ '--panel-inner-bg': 'var(--preview-bg)', color: 'var(--text)' }}>
         <div className="panel-inner rounded-[20px] min-h-[78vh] flex flex-col">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/5 px-6 py-5 relative">
+          <div className="flex items-start justify-between gap-4 border-b border-white/5 px-6 py-5 relative">
             <div className="flex items-center gap-4">
               <GiDinosaurRex className="text-[24px] w-9 h-9 text-red-500" />
               <div>
@@ -25,8 +25,8 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
               </div>
             </div>
 
-            <div className="flex flex-1 items-center justify-center gap-5 sm:gap-7 relative">
-              <div className="hidden lg:flex items-center justify-center gap-5 sm:gap-7">
+            <div className="hidden lg:flex flex-1 items-center justify-center gap-5 sm:gap-7 relative">
+              <div className="flex items-center justify-center gap-5 sm:gap-7">
                 {navItems.map((item) => (
                   <button
                     key={item.label}
@@ -41,26 +41,37 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                     {item.label}
                   </button>
                 ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col lg:flex-row items-end lg:items-center gap-2 lg:gap-3 mt-1 lg:mt-0">
+              <div className="hidden lg:flex items-center gap-3">
                 <button
-                  onClick={toggleTheme}
-                  className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden"
-                  style={{ '--panel-inner-bg': 'var(--code-bg)' }}
-                  title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                  type="button"
+                  className="rounded-[14px] border border-white/40 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
+                  style={{ color: 'var(--text-h)' }}
                 >
-                  <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
-                    {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
-                  </span>
+                  Login
+                </button>
+                <button
+                  type="button"
+                  className="rounded-[14px] border border-blue-500 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
+                  style={{ color: 'var(--text-h)' }}
+                >
+                  Get Started
                 </button>
               </div>
-              <div className="lg:hidden flex flex-col items-center gap-3 absolute right-0 top-0">
+              
+              <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-3">
                 <button
                   onClick={() => setIsMobileNavOpen((prev) => !prev)}
-                  className="rounded-[14px] border border-white/20 px-5 py-4 text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/5"
+                  className={`lg:hidden rounded-[14px] border border-white/20 px-4 py-3 text-[18px] font-black transition-colors hover:border-white/40 hover:bg-white/5 items-center justify-center relative z-[60] ${isMobileNavOpen ? 'hidden' : 'flex'}`}
                   style={{ color: 'var(--text-h)' }}
                   aria-label="Open navigation"
                 >
                   ☰
                 </button>
+
                 <button
                   onClick={toggleTheme}
                   className="h-11 w-11 rounded-[20px] transition-transform active:scale-95 rgb-animate-border relative overflow-hidden"
@@ -72,63 +83,58 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                   </span>
                 </button>
               </div>
-              <div
-                className={`absolute right-0 top-full mt-3 z-50 w-[220px] max-w-[70vw] rounded-[20px] border border-white/10 bg-white/5 px-4 py-4 backdrop-blur-xl shadow-[0_15px_40px_rgba(2,6,23,0.45)] transition-transform duration-300 ease-out ${
-                  isMobileNavOpen
-                    ? 'translate-x-0 opacity-100 pointer-events-auto'
-                    : 'translate-x-full opacity-0 pointer-events-none'
-                }`}
-              >
-                <div className="flex flex-col gap-2">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.label}
-                      type="button"
-                      onClick={() => {
-                        setActivePage(item.label.toLowerCase())
-                        setIsMobileNavOpen(false)
-                      }}
-                      className="w-full rounded-[14px] border border-white/20 px-3 py-2 text-left text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/20"
-                      style={{ color: 'var(--text-h)' }}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-4 flex flex-col gap-2 border-t border-white/10 pt-4">
-                  <button
-                    type="button"
-                    className="w-full rounded-[14px] border border-white/20 px-3 py-2 text-left text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/20"
-                    style={{ color: 'var(--text-h)' }}
-                  >
-                    Login
-                  </button>
-                  <button
-                    type="button"
-                    className="w-full rounded-[14px] border border-blue-500 px-3 py-2 text-left text-[12px] font-black uppercase tracking-[0.18em] transition-colors hover:border-blue-400 hover:bg-white/10"
-                    style={{ color: 'var(--text-h)' }}
-                  >
-                    Get Started
-                  </button>
-                </div>
-              </div>
             </div>
 
-            <div className="self-start flex flex-col items-end gap-2 justify-start">
-              <button
-                type="button"
-                className="hidden lg:inline-flex rounded-[14px] border border-white/40 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
-                style={{ color: 'var(--text-h)' }}
-              >
-                Login
-              </button>
-              <button
-                type="button"
-                className="hidden lg:inline-flex rounded-[14px] border border-blue-500 px-4 py-3 text-[11px] font-black uppercase tracking-[0.18em] transition-colors hover:bg-white/5 sm:px-3 sm:py-2 sm:text-[10px]"
-                style={{ color: 'var(--text-h)' }}
-              >
-                Get Started
-              </button>
+            {/* Mobile Nav Menu Overlay */}
+            <div
+              className={`lg:hidden absolute left-0 right-0 top-0 z-50 w-full rounded-[20px] border border-white/10 bg-white/5 px-6 py-8 backdrop-blur-3xl shadow-[0_15px_40px_rgba(2,6,23,0.45)] transition-transform duration-300 ease-out ${
+                isMobileNavOpen
+                  ? 'translate-y-0 opacity-100 pointer-events-auto'
+                  : '-translate-y-full opacity-0 pointer-events-none'
+              }`}
+            >
+              <div className="flex justify-start mb-10">
+                <button
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="rounded-[14px] border border-white/20 p-3 text-red-400 transition-colors hover:border-red-400/40 hover:bg-white/5"
+                  aria-label="Close navigation"
+                >
+                  <GiCancel className="text-[28px]" />
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-4 mt-12">
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      setActivePage(item.label.toLowerCase())
+                      setIsMobileNavOpen(false)
+                    }}
+                    className="w-full rounded-[14px] border border-white/20 px-4 py-5 text-left text-[16px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/20"
+                    style={{ color: 'var(--text-h)' }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-8 flex flex-col gap-4 border-t border-white/10 pt-8">
+                <button
+                  type="button"
+                  className="w-full rounded-[14px] border border-white/20 px-4 py-5 text-left text-[16px] font-black uppercase tracking-[0.18em] transition-colors hover:border-white/40 hover:bg-white/20"
+                  style={{ color: 'var(--text-h)' }}
+                >
+                  Login
+                </button>
+                <button
+                  type="button"
+                  className="w-full rounded-[14px] border border-blue-500 px-4 py-5 text-left text-[16px] font-black uppercase tracking-[0.18em] transition-colors hover:border-blue-400 hover:bg-white/10"
+                  style={{ color: 'var(--text-h)' }}
+                >
+                  Get Started
+                </button>
+              </div>
             </div>
           </div>
 
@@ -137,7 +143,6 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
             onClick={() => setIsMobileNavOpen(false)}
             aria-hidden={!isMobileNavOpen}
           />
-
           <div className="flex-1 p-4">
             <section className="rounded-[20px] border border-white/5 bg-transparent p-8 md:p-12 relative overflow-hidden min-h-full flex items-center justify-center">
               <div className="absolute inset-0 opacity-70 pointer-events-none" style={{ background: "radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 35%), radial-gradient(circle at 80% 20%, rgba(94,92,230,0.14), transparent 30%)" }}></div>
@@ -253,7 +258,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         <div className="mt-2 text-2xl font-black" style={{ color: "var(--text-h)" }}>$279<span className="text-sm font-semibold opacity-70">/mo</span></div>
                           <ul className="mt-3 space-y-1 text-sm leading-6 opacity-75">
                             <li>3 project workspaces</li>
-                            <li>Up to 20 members</li>
+                            <li>Up to 30 members</li>
                             <li>1,000 tokens/month</li>
                             <li>Shared templates + roles</li>
                           </ul>

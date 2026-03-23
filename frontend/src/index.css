@@ -12,16 +12,16 @@
   /* Light mode defaults */
   --text: #0f172a;
   --text-h: #020617;
-  --bg: #f8fafc;
-  --border: rgba(15, 23, 42, 0.15);
+  --bg: #fdfdfd;
+  --border: rgba(15, 23, 42, 0.12);
   --code-bg: #ffffff;
   --accent: #0284c7;
-  --accent-bg: rgba(2, 132, 199, 0.08);
-  --accent-border: rgba(2, 132, 199, 0.24);
-  --sidebar-bg: #f1f5f9;
-  --preview-bg: #f8fafc;
-  --shadow: rgba(15, 23, 42, 0.1) 0 20px 40px -20px;
-  --page-bg: #e2e8f0;
+  --accent-bg: rgba(2, 132, 199, 0.06);
+  --accent-border: rgba(2, 132, 199, 0.2);
+  --sidebar-bg: #f8fafc;
+  --preview-bg: #fdfdfd;
+  --shadow: rgba(15, 23, 42, 0.08) 0 20px 40px -20px;
+  --page-bg: #f1f5f9;
 
   --sans: 'Inter', system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;

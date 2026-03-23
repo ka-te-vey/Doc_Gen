@@ -10,11 +10,11 @@ export default function Sidebar({
   isGenerating
 }) {
   return (
-    <aside className="w-full lg:w-[450px] h-full flex flex-col rounded-[20px] overflow-visible rgb-animate-border relative" style={{ '--panel-inner-bg': 'var(--sidebar-bg)', color: 'var(--text)' }}>
+    <aside className="w-full lg:w-[450px] h-full flex flex-col rounded-[20px] overflow-visible rgb-animate-border relative" style={{ '--panel-inner-bg': 'var(--sidebar-bg)', color: theme === 'dark' ? '#ffffff' : '#000000' }}>
       <div className="panel-inner h-full flex flex-col">
         <div className="px-5 py-6 border-b border-white/5 flex items-center justify-between relative z-10">
           <div className="group cursor-default">
-            <div className="docgen-brand text-[16px] tracking-[0.5em] uppercase font-black">DocGen</div>
+            <div className="docgen-brand text-[16px] tracking-[0.5em] uppercase font-black" style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>DocGen</div>
             <div className="text-[10px] uppercase tracking-[0.35em] opacity-30">v1.0</div>
           </div>
           <button 
@@ -34,10 +34,10 @@ export default function Sidebar({
             <div className="text-[11px] uppercase tracking-[0.3em] font-bold text-blue-400/60">Documentation Type</div>
             <div className="relative">
               <select
-                className="w-full rounded-[20px] px-4 py-3.5 pr-10 text-xs outline-none transition appearance-none cursor-pointer"
+                className="w-full rounded-[20px] px-4 py-3.5 pr-10 text-xs outline-none transition appearance-none cursor-pointer font-medium"
                 style={{
                   backgroundColor: 'var(--code-bg)',
-                  color: 'var(--text)',
+                  color: theme === 'dark' ? '#ffffff' : '#000000',
                   border: '1px solid var(--border)',
                 }}
                 value={documentData.documentType}
@@ -62,8 +62,12 @@ export default function Sidebar({
               value={documentData.content}
               onChange={(e) => onDocumentChange('content', e.target.value)}
               placeholder="// Paste your code here..."
-              className="h-40 max-h-40 w-full resize-none overflow-y-auto rounded-[20px] border py-4 px-4 text-xs focus:border-blue-500/30 outline-none transition placeholder:opacity-20 custom-scrollbar"
-              style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)', color: 'var(--text)' }}
+              className="h-40 max-h-40 w-full resize-none overflow-y-auto rounded-[20px] border py-4 px-4 text-xs focus:border-blue-500/30 outline-none transition placeholder:opacity-20 custom-scrollbar font-medium"
+              style={{ 
+                borderColor: 'var(--border)', 
+                backgroundColor: 'var(--code-bg)', 
+                color: theme === 'dark' ? '#ffffff' : '#000000'
+              }}
               disabled={isGenerating}
             />
           </div>
