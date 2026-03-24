@@ -138,7 +138,7 @@ export default function ExportModal({ documentData, onClose }) {
               </div>
               <div className="text-right">
                 <div className="opacity-70">{documentData.date}</div>
-                <div className="opacity-70">Page {page} of 1</div>
+                <div className="opacity-70">Page {page} of {page}</div>
               </div>
             </div>
             
