@@ -12,6 +12,7 @@ const navItems = [
 
 export default function Hero({ onStartGenerating, theme, toggleTheme }) {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  
   const [activePage, setActivePage] = useState("home");
 
   return (
