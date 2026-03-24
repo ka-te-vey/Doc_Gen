@@ -1,17 +1,19 @@
-import { useState } from "react"
-import { GiDinosaurRex, GiCancel } from "react-icons/gi"
-import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi"
-import { Footer2 } from "../UI/shadcnblocks-com-footer2"
+import { useState, useEffect } from "react";
+import { GiDinosaurRex, GiCancel } from "react-icons/gi";
+import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
+import { Footer2 } from "../UI/shadcnblocks-com-footer2";
+
+const navItems = [
+  { label: "Home" },
+  { label: "Docs" },
+  { label: "Pricing" },
+  { label: "Contact" },
+];
 
 export default function Hero({ onStartGenerating, theme, toggleTheme }) {
-  const [activePage, setActivePage] = useState("home")
-  const navItems = [
-    { label: "Home", href: "#" },
-    { label: "Pricing", href: "#pricing" },
-    { label: "Docs", href: "#docs" },
-    { label: "Contact", href: "#contact" }
-  ]
-  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [activePage, setActivePage] = useState("home");
+
   return (
     <div className="w-full max-w-[1400px] mx-auto relative z-10">
       <div className="rounded-[20px] rgb-animate-border relative overflow-visible" style={{ '--panel-inner-bg': 'var(--preview-bg)', color: 'var(--text)' }}>
@@ -65,7 +67,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
               <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-3">
                 <button
                   onClick={() => setIsMobileNavOpen((prev) => !prev)}
-                  className="lg:hidden rounded-[14px] border border-white/20 px-4 py-3 text-[18px] font-black transition-all hover:border-white/40 hover:bg-white/5 flex items-center justify-center relative z-[70]"
+                  className={`lg:hidden rounded-[14px] border border-white/20 px-4 py-3 text-[18px] font-black transition-all hover:border-white/40 hover:bg-white/5 flex items-center justify-center relative z-[70] opacity-100`}
                   style={{ color: 'var(--text-h)' }}
                   aria-label={isMobileNavOpen ? "Close navigation" : "Open navigation"}
                 >

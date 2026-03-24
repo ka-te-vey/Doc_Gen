@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import { GiCancel } from "react-icons/gi"
 
@@ -19,14 +19,38 @@ function trimText(text, maxLength = 110) {
 
 export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewChat, items, onRestore, onDelete, onClear, showToggle = true }) {
   const [activeDeleteId, setActiveDeleteId] = useState(null)
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Only apply scroll-to-hide logic on mobile (< 1024px)
+      if (window.innerWidth < 1024) {
+        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+          setIsButtonVisible(false);
+        } else {
+          setIsButtonVisible(true);
+        }
+      } else {
+        setIsButtonVisible(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   if (!showToggle) return null
 
-  return (
-    <>
-      <button
+    return (
+  <aside className="fixed inset-y-0 left-0 z-50 w-64 transition-transform duration-300 overflow-hidden pointer-events-none"
+    style={{ backgroundColor: "transparent" }}
+    aria-label="Chat history sidebar"
+  >
+    <button
         onClick={onToggle}
-        className={`fixed left-6 top-6 sm:top-4 z-[70] h-11 w-11 rounded-[16px] border text-xl font-black leading-none transition-all duration-300 hover:brightness-110 flex items-center justify-center ${isOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+        className={`fixed left-6 top-6 sm:top-4 z-[70] h-11 w-11 rounded-[16px] border text-xl font-black leading-none transition-all duration-300 hover:brightness-110 flex items-center justify-center pointer-events-auto ${isOpen ? "opacity-0 pointer-events-none" : isButtonVisible ? "opacity-100" : "opacity-0"}`}
         style={{ 
           borderColor: "var(--border)", 
           backgroundColor: "var(--code-bg)",
@@ -42,11 +66,7 @@ export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewCha
         onClick={onClose}
         aria-hidden={!isOpen}
       />
-
-      <aside
-        className={`fixed left-0 top-0 z-[60] h-full w-[320px] max-w-[85vw] border-r transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
-        style={{ borderColor: "var(--border)", backgroundColor: "var(--sidebar-bg)", color: "var(--text)" }}
-      >
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 border-r transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"} overflow-hidden pointer-events-auto`} style={{ borderColor: "var(--border)", backgroundColor: "var(--sidebar-bg)" }}>
         <div className="flex h-full flex-col">
           <div className="border-b px-5 py-4" style={{ borderColor: "var(--border)" }}>
             <div className="flex items-center justify-between gap-3">
@@ -157,7 +177,7 @@ export default function ChatHistorySidebar({ isOpen, onToggle, onClose, onNewCha
             </button>
           </div>
         </div>
-      </aside>
-    </>
+      </div>
+    </aside>
   )
 }
