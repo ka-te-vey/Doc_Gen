@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { GiDinosaurRex, GiCancel } from "react-icons/gi";
 import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { Footer2 } from "../UI/shadcnblocks-com-footer2";
@@ -12,11 +12,11 @@ const navItems = [
 
 export default function Hero({ onStartGenerating, theme, toggleTheme }) {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  
+
   const [activePage, setActivePage] = useState("home");
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto relative z-10">
+    <div className="w-full max-w-350 mx-auto relative z-10">
       <div className="rounded-[20px] rgb-animate-border relative overflow-visible" style={{ '--panel-inner-bg': 'var(--preview-bg)', color: 'var(--text)' }}>
         <div className="panel-inner rounded-[20px] min-h-[78vh] flex flex-col">
           <div className="flex items-start justify-between gap-4 border-b border-white/5 px-6 py-5 relative">
@@ -81,7 +81,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                   style={{ '--panel-inner-bg': 'var(--code-bg)' }}
                   title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
                 >
-                  <span className="panel-inner m-[2px] flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
+                  <span className="panel-inner m-0.5 flex h-[calc(100%-4px)] w-[calc(100%-4px)] items-center justify-center rounded-[18px] border border-white/5 bg-white/5 text-lg shadow-lg transition-colors hover:bg-white/10">
                     {theme === 'dark' ? <HiOutlineMoon className="text-blue-400" /> : <HiOutlineSun className="text-amber-400" />}
                   </span>
                 </button>
@@ -171,7 +171,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
 
                     <div className="mt-10 grid w-full max-w-5xl gap-16 md:grid-cols-3">
                       <div
-                        className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Input</div>
@@ -182,7 +182,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         </p>
                       </div>
                       <div
-                        className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Generate</div>
@@ -193,7 +193,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                         </p>
                       </div>
                       <div
-                        className="rounded-[20px] border p-5 transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: 'var(--border)', backgroundColor: 'var(--code-bg)' }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.25em] text-blue-400/70">Preview</div>
@@ -211,7 +211,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                   <div id="pricing" className="w-full max-w-5xl">
                     <div className="grid gap-16 md:grid-cols-3">
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] opacity-70">Starter</div>
@@ -227,7 +227,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                       </div>
 
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--accent-border)", backgroundColor: "var(--accent-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400">Pro</div>
@@ -244,7 +244,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                       </div>
 
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] opacity-70">Team</div>
@@ -267,7 +267,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                   <div id="docs" className="w-full max-w-5xl">
                     <div className="grid gap-16 md:grid-cols-3">
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Smart Generation</div>
@@ -281,7 +281,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                       </div>
 
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Preview Workspace</div>
@@ -292,7 +292,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                       </div>
 
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Export Tools</div>
@@ -309,7 +309,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                   <div id="contact" className="w-full max-w-5xl">
                     <div className="grid gap-16 md:grid-cols-3">
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Email</div>
@@ -318,7 +318,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                       </div>
 
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Sales</div>
@@ -327,7 +327,7 @@ export default function Hero({ onStartGenerating, theme, toggleTheme }) {
                       </div>
 
                       <div
-                        className="rounded-[20px] border p-5 text-left transition-transform transition-shadow duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
+                        className="rounded-[20px] border p-5 text-left transition-transform duration-75 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(56,189,248,0.14)]"
                         style={{ borderColor: "var(--border)", backgroundColor: "var(--preview-bg)" }}
                       >
                         <div className="text-lg font-black uppercase tracking-[0.2em] text-blue-400/70">Live Chat</div>
